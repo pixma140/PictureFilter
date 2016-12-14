@@ -1,11 +1,13 @@
 body {	
 	font-family: "Arial";
+	font-size: 1em;
 	
 	width: 90%;
 	height: auto;
 	
 	margin-left: auto;
 	margin-right: auto;
+	
 	
 	text-align: center;
 	
@@ -19,7 +21,7 @@ header {
 	width: auto;
 	
 	padding-top: 2px;
-	padding-bottom: 2px;
+	padding-bottom: 2px;	
 	
 	color: white;
 	
@@ -32,6 +34,8 @@ section {
 	
 	padding-top: 5px;
 	padding-bottom: 5px;
+	
+	font-size: 2em;
 		
 	background-color: #DDEEFF;
 }
@@ -47,7 +51,7 @@ footer {
 }
 
 h1 {		
-	font-size: 1em;
+	font-size: 2em;
 	color: white;
 }
 
@@ -61,6 +65,7 @@ input[type="text"] {
 }
 
 input[type="button"] {
+	font-size: 2em;
     width: 100%;
 	display: center;
 }
