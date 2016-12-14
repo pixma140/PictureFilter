@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+
+	<title>Filtering</title>
+
+	<meta name="author" content="Corbinian Grimm">
+	<meta name="description" content="This is my webapp project to filter pictures in browser">
+	<meta name="keywords" content="filter, images, application, webapp, filter images">	
+
+	<!-- Load the script -->
+	<script src="js/script.js"></script>	
+		
+	<link media="only screen and (max-width: 480px)" href="css/style.css" type= "text/css">
+	<link rel="stylesheet" href="css/style.css" title="main-template">
+
+</head>
+
+<body>
+	
+	<header>		
+		<h1>Picture Filter</h1>
+		<p><input type="button" value="Switch Kamera" id="buttonNew" onclick="buttonSwitchKameraPressed()"/></p>		
+	</header>
+
+	<section>
+		This is my content.
+	</section>	
+
+	<footer>
+	<p><input type="button" value="Neuer Eintrag" id="buttonNew" onclick="buttonNewEntryPressed()"/></p>
+	<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>
+		
+		
+	</footer>
+	
+	<!-- <script>initialize()</script> -->
+	
+	<!-- debug text view -->
+	<p><input type="text" readonly id="debug" value="Debug Text View"/></p>
+</body>
+</html>
