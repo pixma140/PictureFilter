@@ -36,6 +36,30 @@ function setFavoriteFilter() {
 	// set current filter to favorite filter cookie
 }
 
+function showStream() {
+	// Reference to video element.
+  	var video = document.querySelector('video');
+	
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
+
+	// Ensure cross-browser functionality.
+	navigator.getUserMedia  = navigator.getUserMedia ||
+							  navigator.webkitGetUserMedia ||
+							  navigator.mozGetUserMedia ||
+							  navigator.msGetUserMedia;
+
+	if (navigator.getUserMedia) {
+		navigator.getUserMedia({audio: true, video: true}, function(stream) {
+			video.src = window.URL.createObjectURL(stream);
+		}, errorCallback);
+	} else {
+		alert("Fail");
+		// video.src = 'somevideo.webm'; // fallback.
+	}
+}
+
 function getDate() {
 	var date = new Date();
 
