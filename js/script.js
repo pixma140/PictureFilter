@@ -115,16 +115,23 @@ function showStream() {
 	// Reference to video element.
   	var video = document.querySelector('video');
 	
-	var errorCallback = alert("No camera found!");
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
 
 	// Ensure cross-browser functionality.
-	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	navigator.getUserMedia  = navigator.getUserMedia ||
+							  navigator.webkitGetUserMedia ||
+							  navigator.mozGetUserMedia ||
+							  navigator.msGetUserMedia;
 
 	if (navigator.getUserMedia) {
-		navigator.getUserMedia({audio: true, video: true}, function(stream) { video.src = window.URL.createObjectURL(stream);}, errorCallback);
+		navigator.getUserMedia({audio: false, video: true}, function(stream) {
+			video.src = window.URL.createObjectURL(stream);
+		}, errorCallback);
 	} else {
 		alert("Fail");
-		//video.src = 'somevideo.webm'; // fallback.
+		// video.src = 'somevideo.webm'; // fallback.
 	}
 
 	/*
