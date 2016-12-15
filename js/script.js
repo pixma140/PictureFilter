@@ -119,6 +119,7 @@ function showStream() {
 	// Ensure cross-browser functionality.
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
+	/*
 	// todo maybe delete this
 	function gotSources(sourceInfos) {
 		for (var i = 0; i !== sourceInfos.length; ++i) {
@@ -134,7 +135,7 @@ function showStream() {
 				console.log('Some other kind of source: ', sourceInfo);
 			}
 		}
-	}
+	} */
 		
 	//kann bleiben
 	if (navigator.getUserMedia) {
