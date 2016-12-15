@@ -67,7 +67,7 @@ function doStuff() {
 	if (sources[0] == "") {
 		alert("text");
 	} else {
-		alert("id: " + sources[0].id);
+	alert("id: "};
 	}
 
 	if (typeof MediaStreamTrack === 'undefined' || typeof MediaStreamTrack.getSources === 'undefined') {
