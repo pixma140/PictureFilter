@@ -52,13 +52,20 @@ function doStuff() {
 
 	// method to get all video sources
 	function gotSources(sourceInfos) {
+		
+		alert("i am inside do stuff got sources");
+		
 		for (var i = 0; i !== sourceInfos.length; ++i) {
-			
+		
+			alert("i am inside do stuff got sources inside loop");
+		
 			var sourceInfo = sourceInfos[i];
 			
 			if (sourceInfo.kind === 'video') {
 				sources.push(sourceInfo);
+				alert("i am inside do stuff got sources inside loop and true case video");
 			} else {
+				alert("i am inside do stuff got sources inside loop and false case video");
 				console.log('Some other kind of source: ', sourceInfo);
 			}
 		}
