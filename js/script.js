@@ -42,6 +42,7 @@ function setFavoriteFilter() {
 	// set current filter to favorite filter cookie
 }
 
+/*
 function doStuff() {
 	
 	var videoElement = document.querySelector('video');
@@ -108,7 +109,7 @@ function doStuff() {
 	switchButton.onclick = start;
 
 	start();
-}
+} */
 
 function showStream() {
 	// Reference to video element.
@@ -118,6 +119,13 @@ function showStream() {
 
 	// Ensure cross-browser functionality.
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+	if (navigator.getUserMedia) {
+		navigator.getUserMedia({audio: true, video: true}, function(stream) { video.src = window.URL.createObjectURL(stream);}, errorCallback);
+	} else {
+		alert("Fail");
+		//video.src = 'somevideo.webm'; // fallback.
+	}
 
 	/*
 	// todo maybe delete this
@@ -135,15 +143,7 @@ function showStream() {
 				console.log('Some other kind of source: ', sourceInfo);
 			}
 		}
-	} */
-		
-	//kann bleiben
-	if (navigator.getUserMedia) {
-		navigator.getUserMedia({audio: false, video: true}, function(stream){video.src = window.URL.createObjectURL(stream);}, errorCallback);
-	} else {
-		alert("Fail");
-		// video.src = 'somevideo.webm'; // fallback.
-	}
+	} */		
 }
 
 	function getDate() {
