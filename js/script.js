@@ -125,7 +125,7 @@ function showStream() {
 		video.src = window.URL.createObjectURL(stream);
 	}
 	
-	var constraints = {audio: false, video: true};
+	var constraints = {audio: false, video:  mandatory: {true, maxWidth: 640, maxHeight: 360}};
   
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
