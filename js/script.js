@@ -71,8 +71,59 @@ function loadSources() {
 	alert(sources.length);
 }
 
-function showStream() {	
+function showStream() {
+
+	//getting the video element
+	var video = document.querySelector('video');
 	
+	//callback function
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
+	
+	//stream function
+	var functionStream = function(stream) {
+		video.src = window.URL.createObjectURL(stream);
+	}
+	
+	//var constraints = {audio: false, video:  true};
+  
+	//cross browser taking user media
+	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+	MediaStreamTrack.getSources(function(sourceInfos) {
+		//var audioSource = null;
+		var videoSource = null;
+
+		for (var i = 0; i != sourceInfos.length; ++i) {
+			
+			var sourceInfo = sourceInfos[i];
+			
+			if (sourceInfo.kind === 'audio') {
+				//handle audio source				
+			} else if (sourceInfo.kind === 'video') {
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
+				
+				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
+
+				sources.push(sourceInfo.id);
+				videoSource = sourceInfo.id;
+			} else {
+				// Handle other source
+			}
+		}
+		sourceSelected(videoSource);
+	});
+
+	function sourceSelected(videoSource) {
+		var constraints = {
+			audio: false,
+			video: {optional: [{sourceId: videoSource}]}
+		};
+		navigator.getUserMedia(constraints, functionStream, errorCallback);
+	}
+	
+	/*
 	//things happening
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 	
@@ -119,7 +170,7 @@ function showStream() {
 	}	
 	
 	//stream
-	navigator.getUserMedia(constraints, functionStream, errorCallback);	
+	navigator.getUserMedia(constraints, functionStream, errorCallback);	*/
 }
 
 function getDate() {
