@@ -79,7 +79,7 @@ function showStream() {
 	//consraints
 	var constraints = {
 		audio: false,
-		video: {optional: [{sourceId: sources[0]}]}
+		video: {optional: [{sourceId: sources[1]}]}
 	};
 	
 	//callback function
