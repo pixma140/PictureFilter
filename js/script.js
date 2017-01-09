@@ -70,7 +70,7 @@ function loadSources() {
 	});
 	
 	for ( var i = 0; i < sources.length; i++ {
-		alert(sources[i];
+		alert(sources[i]);
 	}
 }
 
