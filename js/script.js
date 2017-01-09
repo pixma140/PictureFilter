@@ -85,7 +85,7 @@ function showStream() {
 				// Handle other source
 			}
 		}
-		sourceSelected(sources[2]);
+		sourceSelected(sources[3]);
 	});
 	
 	alert(sources.length);
