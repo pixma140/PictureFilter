@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Filtering</title>
+	<title>Picture Filter</title>
 
 	<meta name="author" content="Corbinian Grimm">
 	<meta name="description" content="This is my webapp project to filter pictures in browser">
@@ -19,13 +19,12 @@
 
 <body>	
 	<header>		
-		<h1>Picture Filter</h1>
-		<p><input type="button" value="Switch Kamera" id="buttonNew" onclick="buttonSwitchKameraPressed()"/></p>		
+		<p><input type="button" value="Switch Camera" id="buttonNew" onclick="buttonSwitchKameraPressed()"/></p>		
 	</header>
 
 	<section>
 	
-		<p>// TODO: Insert Camera Here</p>			
+		<!-- <p>//TODO: Insert Camera Here</p> -->
 		
 		<p><video autoplay> </video></p>
 		
@@ -36,13 +35,13 @@
 	</section>	
 
 	<footer>
-		<p><input type="button" value="Neuer Eintrag" id="buttonNew" onclick="buttonNewEntryPressed()"/></p>
+		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
 		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>
 	</footer>
 	
 	<!-- <script>initialize()</script> -->
 	
 	<!-- debug text view -->
-	<p><input type="text" readonly id="debug" value="Debug Text View"/></p>		
+	<!-- <p><input type="text" readonly id="debug" value="Debug Text View"/></p> -->
 </body>
 </html>

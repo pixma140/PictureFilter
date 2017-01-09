@@ -9,7 +9,6 @@ var currentSource;
 
 function initialize() {
 	
-	
 	// check if cookie favorite filter is set
 	if(getCookie("lastFilter") == ""){
 		// set last filter to no filter
@@ -27,8 +26,8 @@ function buttonSwitchKameraPressed() {
 	
 }
 
-function buttonNewEntryPressed() {			
-	alert("buttonNewEntryPressed");
+function buttonNewPicturePressed() {			
+	alert("buttonNewPicturePressed");
 	
 }
 
