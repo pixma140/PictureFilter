@@ -73,11 +73,10 @@ function showStream() {
 	//list cameras and microphones.
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
 		devices.forEach(function(device) {
-			alert(device.kind + ": " + device.label + " id = " + device.deviceId);
 			
-			if (device.kind === 'videoinput') {
-				alert("camera found");
-				videoSource = device.deviceId;				
+			if (device.kind === 'videoinput') {				
+				videoSource = device.deviceId;
+				alert(device.kind + ": " + device.label + " id = " + device.deviceId);				
 			}
 			//console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
 		});
