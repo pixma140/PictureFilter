@@ -41,75 +41,6 @@ function setFavoriteFilter() {
 	// set current filter to favorite filter cookie
 }
 
-/*
-function doStuff() {
-	
-	var videoElement = document.querySelector('video');
-	var switchButton = document.getElementById('buttonSwitchCamera');
-
-	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-
-	// method to get all video sources
-	function gotSources(sourceInfos) {
-		
-		alert("i am inside do stuff got sources");
-		
-		for (var i = 0; i !== sourceInfos.length; ++i) {
-		
-			alert("i am inside do stuff got sources inside loop");
-		
-			var sourceInfo = sourceInfos[i];
-			
-			if (sourceInfo.kind === 'video') {
-				sources.push(sourceInfo);
-				alert("i am inside do stuff got sources inside loop and true case video");
-			} else {
-				alert("i am inside do stuff got sources inside loop and false case video");
-				console.log('Some other kind of source: ', sourceInfo);
-			}
-		}
-	}
-	
-	if (sources[0] == "") {
-		alert("text");
-	} else {
-	alert("id: "};
-	}
-
-	if (typeof MediaStreamTrack === 'undefined' || typeof MediaStreamTrack.getSources === 'undefined') {
-		alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
-	} else {
-		MediaStreamTrack.getSources(gotSources);
-	}
-
-	function successCallback(stream) {
-		window.stream = stream; // make stream available to console
-		videoElement.src = window.URL.createObjectURL(stream);
-		videoElement.play();
-	}
-
-	function errorCallback(error) {
-		alert("Error callback");
-		console.log('navigator.getUserMedia error: ', error);
-	}
-
-	function start() {
-		if (window.stream) {
-				videoElement.src = null;
-				window.stream.stop();
-		}
-		
-		var videoSource = sources[0].value; // videoSelect.value;
-		var constraints = {audio: false, video: {optional: [{sourceId: videoSource}]}};
-		navigator.getUserMedia(constraints, successCallback, errorCallback);
-	}
-	
-	switchButton.onclick = start;
-
-	start();
-} */
-
 function loadSources() {
 	
 	//cross browser taking user media
@@ -125,27 +56,36 @@ function loadSources() {
 			var sourceInfo = sourceInfos[i];
 			
 			if (sourceInfo.kind === 'audio') {
-				alert("Audio source found!");
-				
+				//Handle audio source if wanted
 			} else if (sourceInfo.kind === 'video') {
-				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
-				
-				console.log(sourceInfo.id, sourceInfo.label || 'camera');
+				//alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");							
 
 				sources.push(sourceInfo.id);
-				videoSource = sourceInfo.id;
+				//videoSource = sourceInfo.id;
 			} else {
 				//console.log('Some other kind of source: ', sourceInfo);
-				alert("Some other source");
+				//alert("Some other source");
 			}
 		}		
 	});
+	
+	for ( var i = 0; i < sources.length; i++ {
+		alert(sources[i];
+	}
 }
 
 function showStream() {
 	
+	alert("show streams");
+	
 	//getting the video element
 	var video = document.querySelector('video');
+	
+	//consraints
+	var constraints = {
+		audio: false,
+		video: {optional: [{sourceId: sources[0]}]}
+	};
 	
 	//callback function
 	var errorCallback = function(e) {
@@ -157,23 +97,7 @@ function showStream() {
 		video.src = window.URL.createObjectURL(stream);
 	}
 	
-	
-	var constraints = {
-		audio: false,
-		video: {optional: [{sourceId: sources[0]}]}
-	};
-	
-	navigator.getUserMedia(constraints, functionStream, errorCallback);
-
-	/*
-	//stream input
-	if (navigator.getUserMedia) {
-		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	} else {
-		alert("Fail");
-		// video.src = 'somevideo.webm'; // fallback.
-	}
-	*/
+	navigator.getUserMedia(constraints, functionStream, errorCallback);	
 }
 
 function getDate() {
