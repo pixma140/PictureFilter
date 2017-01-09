@@ -63,8 +63,7 @@ function loadSources() {
 				sources.push(sourceInfo.id);
 				currentSource = sourceInfo.id;			
 			} else {
-				//console.log('Some other kind of source: ', sourceInfo);
-				//alert("Some other source");
+				//Handle other source if wanted
 			}
 		}		
 	});
@@ -80,7 +79,7 @@ function showStream() {
 	//consraints
 	var constraints = {
 		audio: false,
-		video: {optional: [{sourceId: currentSource}]}
+		video: {optional: [{sourceId: sources[0]}]}
 	};
 	
 	//callback function
@@ -93,6 +92,7 @@ function showStream() {
 		video.src = window.URL.createObjectURL(stream);
 	}
 	
+	//stream
 	navigator.getUserMedia(constraints, functionStream, errorCallback);	
 }
 
