@@ -126,22 +126,25 @@ var pos = 0;
 var lastAction=new Date();
 var myField = ["1","2","3","4","5","6"];
 
-function shakeIt(){
-	window.ondevicemotion = function(coords) {
-		var sensibility = 3;
-		var minTime = 500;
-		var accX = coords.acceleration.x;
-		var time = new Date();
-		if (time-lastAction<minTime) return;
-		if (accX>=sensibility || accX<=-sensibility) {
-			pos += accX > 0 ? 1 : -1;
-			pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
-			document.getElementById('buttonSwitchCamera').value = myField[pos];
-			lastAction=time;
-		}
+var pos = 0;
+var lastGamma=0;
+
+function turnIt(event){
+	var minGamma = 25;
+	var resetGamma = 15;
+	var gamma = event.gamma;
+	if (gamma>=-resetGamma && gamma <= resetGamma) lastGamma=0;
+	if (lastGamma<=-minGamma && gamma <=-minGamma) return;
+	if (lastGamma>=minGamma && gamma >=minGamma) return;
+	if (gamma>=minGamma || gamma<=-minGamma) {
+	pos += gamma > 0 ? 1 : -1;
+	pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
+	document.getElementById('buttonSwitchCamera').value=myField[pos];
+	lastGamma=gamma;
 	}
 }
 
+window.addEventListener("deviceorientation", turnIt, true);
 
 function getDate() {
 	var date = new Date();
