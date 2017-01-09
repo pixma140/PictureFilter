@@ -110,23 +110,8 @@ function doStuff() {
 	start();
 } */
 
-function showStream() {
+function loadSources() {
 	
-	//getting the video element
-	var video = document.querySelector('video');
-	
-	//callback function
-	var errorCallback = function(e) {
-		alert("No camera found!");
-	};
-	
-	//stream function
-	var functionStream = function(stream) {
-		video.src = window.URL.createObjectURL(stream);
-	}
-	
-	//var constraints = {audio: false, video:  true};
-  
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
@@ -153,19 +138,33 @@ function showStream() {
 				//console.log('Some other kind of source: ', sourceInfo);
 				alert("Some other source");
 			}
-		}
-		sourceSelected(videoSource);
+		}		
 	});
+}
 
-	function sourceSelected(videoSource) {
-		var constraints = {
-			audio: false,
-			video: {optional: [{sourceId: videoSource}]}
-		};
-		navigator.getUserMedia(constraints, functionStream, errorCallback);
+function showStream() {
+	
+	//getting the video element
+	var video = document.querySelector('video');
+	
+	//callback function
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
+	
+	//stream function
+	var functionStream = function(stream) {
+		video.src = window.URL.createObjectURL(stream);
 	}
 	
 	
+	var constraints = {
+		audio: false,
+		video: {optional: [{sourceId: sources[0]}]}
+	};
+	
+	navigator.getUserMedia(constraints, functionStream, errorCallback);
+
 	/*
 	//stream input
 	if (navigator.getUserMedia) {
@@ -174,28 +173,11 @@ function showStream() {
 		alert("Fail");
 		// video.src = 'somevideo.webm'; // fallback.
 	}
-	
-	/*
-	// todo maybe delete this
-	function gotSources(sourceInfos) {
-		for (var i = 0; i !== sourceInfos.length; ++i) {
-			
-			var sourceInfo = sourceInfos[i];
-			var option = document.createElement('option');
-			option.value = sourceInfo.id;
-			
-			if (sourceInfo.kind === 'video') {
-				option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-				videoSelect.appendChild(option);
-			} else {
-				console.log('Some other kind of source: ', sourceInfo);
-			}
-		}
-	} */		
+	*/
 }
 
-	function getDate() {
-		var date = new Date();
+function getDate() {
+	var date = new Date();
 
 	var day = date.getDate();
 	var month = date.getMonth() + 1;
