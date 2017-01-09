@@ -73,6 +73,32 @@ function loadSources() {
 
 function showStream() {	
 	
+	//things happening
+	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+	
+	MediaStreamTrack.getSources(function(sourceInfos) {
+		//var audioSource = null;
+		var videoSource = null;
+
+		for (var i = 0; i != sourceInfos.length; ++i) {
+			
+			var sourceInfo = sourceInfos[i];
+			
+			if (sourceInfo.kind === 'audio') {
+				//Handle audio source if wanted
+			} else if (sourceInfo.kind === 'video') {
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");							
+
+				sources.push(sourceInfo.id);
+				currentSource = sourceInfo.id;			
+			} else {
+				//Handle other source if wanted
+			}
+		}		
+	});
+	
+	alert(sources.length);
+	
 	//getting the video element
 	var video = document.querySelector('video');
 	
@@ -90,7 +116,7 @@ function showStream() {
 	//stream function
 	var functionStream = function(stream) {
 		video.src = window.URL.createObjectURL(stream);
-	}
+	}	
 	
 	//stream
 	navigator.getUserMedia(constraints, functionStream, errorCallback);	
