@@ -78,8 +78,6 @@ function showStream() {
 			if (device.kind === 'videoinput') {
 				alert("camera found");
 				videoSource = device.deviceId;				
-			} else {
-				alert("other found");
 			}
 			//console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
 		});
