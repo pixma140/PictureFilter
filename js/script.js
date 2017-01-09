@@ -122,6 +122,27 @@ function showStream() {
 	} 
 }
 
+var pos = 0;
+var lastAction=new Date();
+var myField = ["1","2","3","4","5","6"];
+
+function shakeIt(){
+	window.ondevicemotion = function(coords) {
+		var sensibility = 3;
+		var minTime = 500;
+		var accX = coords.acceleration.x;
+		var time = new Date();
+		if (time-lastAction<minTime) return;
+		if (accX>=sensibility || accX<=-sensibility) {
+			pos += accX > 0 ? 1 : -1;
+			pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
+			document.getElementById('buttonSwitchCamera').value = myField[pos];
+			lastAction=time;
+		}
+	}
+}
+
+
 function getDate() {
 	var date = new Date();
 

@@ -23,15 +23,16 @@
 
 <body>	
 	<header>		
-		<p><input type="button" value="Switch Camera" id="buttonNew" onclick="buttonSwitchKameraPressed()"/></p>		
+		<p><input type="button" value="Switch Camera" id="buttonSwitchCamera" onclick="buttonSwitchKameraPressed()"/></p>		
 	</header>
 
-	<section>		
-		
+	<section>
+
 		<video autoplay></video>
 		
 		<script>
 			showStream();
+			shakeIt();
 		</script>
 	
 	</section>	
