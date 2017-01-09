@@ -61,7 +61,7 @@ function loadSources() {
 				//alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");							
 
 				sources.push(sourceInfo.id);
-				//videoSource = sourceInfo.id;
+				currentSource = sourceInfo.id;			
 			} else {
 				//console.log('Some other kind of source: ', sourceInfo);
 				//alert("Some other source");
@@ -69,14 +69,10 @@ function loadSources() {
 		}		
 	});
 	
-	for ( var i = 0; i < sources.length; i++) {
-		alert(sources[i]);
-	}
+	alert(sources.length);
 }
 
-function showStream() {
-	
-	alert("show streams");
+function showStream() {	
 	
 	//getting the video element
 	var video = document.querySelector('video');
@@ -84,7 +80,7 @@ function showStream() {
 	//consraints
 	var constraints = {
 		audio: false,
-		video: {optional: [{sourceId: sources[0]}]}
+		video: {optional: [{sourceId: currentSource}]}
 	};
 	
 	//callback function
