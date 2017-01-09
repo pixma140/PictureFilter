@@ -125,11 +125,48 @@ function showStream() {
 		video.src = window.URL.createObjectURL(stream);
 	}
 	
-	var constraints = {audio: false, video:  true};
+	//var constraints = {audio: false, video:  true};
   
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
+	
+	MediaStreamTrack.getSources(function(sourceInfos) {
+		//var audioSource = null;
+		var videoSource = null;
+
+		for (var i = 0; i != sourceInfos.length; ++i) {
+			
+			var sourceInfo = sourceInfos[i];
+			
+			if (sourceInfo.kind === 'audio') {
+				alert("Audio source found!");
+				
+			} else if (sourceInfo.kind === 'video') {
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
+				
+				console.log(sourceInfo.id, sourceInfo.label || 'camera');
+
+				sources.push(sourceInfo.id);
+				videoSource = sourceInfo.id;
+			} else {
+				//console.log('Some other kind of source: ', sourceInfo);
+				alert("Some other source");
+			}
+		}
+		sourceSelected(videoSource);
+	});
+
+	function sourceSelected(videoSource) {
+		var constraints = {
+			audio: false,
+			video: {optional: [{sourceId: videoSource}]}
+		};
+		navigator.getUserMedia(constraints, functionStream, errorCallback);
+	}
+	
+	
+	/*
 	//stream input
 	if (navigator.getUserMedia) {
 		navigator.getUserMedia(constraints, functionStream, errorCallback);
@@ -137,7 +174,6 @@ function showStream() {
 		alert("Fail");
 		// video.src = 'somevideo.webm'; // fallback.
 	}
-	
 	
 	/*
 	// todo maybe delete this
