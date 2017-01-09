@@ -111,28 +111,34 @@ function doStuff() {
 } */
 
 function showStream() {
-	// Reference to video element.
-  	var video = document.querySelector('video');
 	
+	//getting the video element
+	var video = document.querySelector('video');
+	
+	//callback function
 	var errorCallback = function(e) {
 		alert("No camera found!");
 	};
+	
+	//stream function
+	var functionStream = function(stream) {
+		video.src = window.URL.createObjectURL(stream);
+	}
+	
+	var constraints = {audio: false, video: true};
+  
+	//cross browser taking user media
+	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
-	// Ensure cross-browser functionality.
-	navigator.getUserMedia  = navigator.getUserMedia ||
-							  navigator.webkitGetUserMedia ||
-							  navigator.mozGetUserMedia ||
-							  navigator.msGetUserMedia;
-
+	//stream input
 	if (navigator.getUserMedia) {
-		navigator.getUserMedia({audio: false, video: true}, function(stream) {
-			video.src = window.URL.createObjectURL(stream);
-		}, errorCallback);
+		navigator.getUserMedia(constraints, functionStream, errorCallback);
 	} else {
 		alert("Fail");
 		// video.src = 'somevideo.webm'; // fallback.
 	}
-
+	
+	
 	/*
 	// todo maybe delete this
 	function gotSources(sourceInfos) {
