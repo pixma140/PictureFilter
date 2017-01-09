@@ -58,7 +58,7 @@ function loadSources() {
 			if (sourceInfo.kind === 'audio') {
 				//Handle audio source if wanted
 			} else if (sourceInfo.kind === 'video') {
-				//alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");							
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");							
 
 				sources.push(sourceInfo.id);
 				currentSource = sourceInfo.id;			
@@ -79,7 +79,7 @@ function showStream() {
 	//consraints
 	var constraints = {
 		audio: false,
-		video: {optional: [{sourceId: sources[1]}]}
+		video: {optional: [{sourceId: currentSource}]}
 	};
 	
 	//callback function
