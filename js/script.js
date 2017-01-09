@@ -64,6 +64,33 @@ function showStream() {
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
+	if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
+		console.log("enumerateDevices() not supported.");	
+	}
+	
+	var videoSource = null;
+
+	//list cameras and microphones.
+	navigator.mediaDevices.enumerateDevices().then(function(devices) {
+		devices.forEach(function(device) {
+			alert(device.kind + ": " + device.label + " id = " + device.deviceId);
+			
+			if (device.kind === 'videoinput') {
+				alert("camera found");
+				videoSource = device.deviceId;				
+			} else {
+				alert("other found");
+			}
+			//console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+		});
+	}).catch(function(err) {
+		alert(err.name + ": " + err.message);
+		//console.log(err.name + ": " + err.message);
+	});
+	
+	sourceSelected(videoSource);
+	
+	/*
 	MediaStreamTrack.getSources(function(sourceInfos) {
 		//var audioSource = null;
 		var videoSource = null;
@@ -86,9 +113,9 @@ function showStream() {
 			}
 		}
 		sourceSelected(sources[3]);
-	});
+	}); */
 	
-	alert(sources.length);
+	//alert(sources.length);
 
 	function sourceSelected(videoSource) {
 		var constraints = {
