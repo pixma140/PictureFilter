@@ -125,8 +125,6 @@ function showStream() {
 var pos = 0;
 var lastAction=new Date();
 var myField = ["1","2","3","4","5","6"];
-
-var pos = 0;
 var lastGamma=0;
 
 function turnIt(event){
@@ -139,7 +137,8 @@ function turnIt(event){
 	if (gamma>=minGamma || gamma<=-minGamma) {
 	pos += gamma > 0 ? 1 : -1;
 	pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
-	document.getElementById('buttonSwitchCamera').value=myField[pos];
+	alert("i am here");
+	document.getElementById('buttonSwitchCamera').value = myField[pos];
 	lastGamma=gamma;
 	}
 }
