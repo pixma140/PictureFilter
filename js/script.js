@@ -76,16 +76,15 @@ function showStream() {
 			
 			if (device.kind === 'videoinput') {				
 				videoSource = device.deviceId;
+				sources.push(device.deviceId);
 				alert(device.kind + ": " + device.label + " id = " + device.deviceId);				
-			}
-			//console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
+			}			
 		});
 	}).catch(function(err) {
-		alert(err.name + ": " + err.message);
-		//console.log(err.name + ": " + err.message);
+		alert(err.name + ": " + err.message);		
 	});
 	
-	sourceSelected(videoSource);
+	sourceSelected(sources[1]);
 	
 	/*
 	MediaStreamTrack.getSources(function(sourceInfos) {
