@@ -70,6 +70,7 @@ function showStream() {
 	
 	var videoSource = null;
 
+	/*
 	//list cameras and microphones.
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
 		devices.forEach(function(device) {
@@ -84,9 +85,8 @@ function showStream() {
 		alert(err.name + ": " + err.message);		
 	});
 	
-	sourceSelected(sources[1]);
+	sourceSelected(sources[1]); */
 	
-	/*
 	MediaStreamTrack.getSources(function(sourceInfos) {
 		//var audioSource = null;
 		var videoSource = null;
@@ -108,8 +108,8 @@ function showStream() {
 				// Handle other source
 			}
 		}
-		sourceSelected(sources[3]);
-	}); */
+		sourceSelected(sources[1]);
+	}); 
 	
 	//alert(sources.length);
 
@@ -119,7 +119,7 @@ function showStream() {
 			video: {optional: [{sourceId: videoSource}]}
 		};
 		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	}
+	} 
 }
 
 function getDate() {
