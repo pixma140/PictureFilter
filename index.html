@@ -23,7 +23,8 @@
 
 <body>	
 	<header>		
-		<p><input type="button" value="Switch Camera" id="buttonSwitchCamera" onclick="buttonSwitchKameraPressed()"/></p>		
+		<p><input type="button" value="Switch Camera" id="buttonSwitchCamera" onclick="buttonSwitchKameraPressed()"/></p>
+		<!-- <p><input type="button" value="Back" id="buttonBack" onclick="buttonBackPressed()"/></p> -->
 	</header>
 
 	<section>
@@ -39,6 +40,11 @@
 	</section>	
 
 	<footer>
+		<p>
+			<input type="button" value="Backward" id="buttonBackward" onclick="buttonBackwardPressed()"/>
+			<input type="button" value="Forward" id="buttonForward" onclick="buttonForwardPressed()"/>
+		</p>
+		
 		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
 		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>
 	</footer>
