@@ -61,6 +61,7 @@ function switchFilter() {
 	//alert(currentFilterPos + "/" + filters.length + " " + currentFilter);
 	
 	document.getElementById("myPic").setAttribute("style", "-webkit-filter:" + currentFilter);
+	document.getElementById("myVideo").setAttribute("style", "-webkit-filter:" + currentFilter);
 }
 
 function buttonSwitchKameraPressed() {			

@@ -24,22 +24,22 @@
 <body>	
 	<header>		
 		<p><input type="button" value="Switch Camera" id="buttonSwitchCamera" onclick="buttonSwitchKameraPressed()"/></p>
-		<!-- <p><input type="button" value="Back" id="buttonBack" onclick="buttonBackPressed()"/></p> -->
+		<p><input type="button" value="Back" id="buttonBack" onclick="buttonBackPressed()"/></p>
 	</header>
 
 	<section>
 
-		<video id="myVideo" autoplay></video>
+		<p>
+			<video id="myVideo" autoplay></video>
+			<img id="myFramePicture" src="">
+			<canvas style="display:none;"></canvas>
+		</p>
 		
 		<script>
 			showStream();			
 		</script>
 		
 		<p><img src="img\pokemon.jpg" id="myPic" width="25%" height="25%" alt="Logo" title="Logo"></p>
-		
-		<img id="myFramePicture" src="">
-		<canvas style="display:none;"></canvas>
-		
 	
 	</section>	
 
