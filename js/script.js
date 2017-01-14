@@ -1,6 +1,12 @@
 // start page with last filter = 0; 0 is no filter
 var lastFilter = 0;
 
+// current filter vars
+var currentFilterPos = 0;
+//TODO: add more filters
+var filters = new Array("grayscale(50%)","hue-rotate(180deg)","invert(100%)","opacity(50%)","saturate(250%)","sepia(100%)","contrast(50%)","brightness(10%)","blur(3px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
+var currentFilter = filters[0];
+
 // array with all video sources
 var sources = new Array();
 
@@ -19,6 +25,42 @@ function initialize() {
 	}
 		
 	// TODO always update last filter
+}
+
+function buttonBackwardPressed() {
+	//alert("buttonBackwardPressed");
+	
+	currentFilterPos--;		
+	
+	if (currentFilterPos == -1) {
+		currentFilterPos = filters.length-1;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}
+	
+	switchFilter();
+}
+
+function buttonForwardPressed() {
+	//alert("buttonBackwardPressed");
+	
+	currentFilterPos++;
+	
+	if (currentFilterPos == filters.length) {
+		currentFilterPos = 0;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}	
+	
+	switchFilter();
+}
+
+function switchFilter() {
+	//alert(currentFilterPos + "/" + filters.length + " " + currentFilter);
+	
+	document.getElementById("myPic").setAttribute("style", "-webkit-filter:" + currentFilter);
 }
 
 function buttonSwitchKameraPressed() {			
@@ -43,7 +85,7 @@ function setFavoriteFilter() {
 
 function loadSources() {
 	
-	alert(sources.length);
+	//alert(sources.length);
 }
 
 function showStream() {
