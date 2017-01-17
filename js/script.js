@@ -12,13 +12,16 @@ var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100
 var currentSource = 0;
 // array with all video sources
 var sources = new Array();
+var sourceCounter = 0;
 
 function initialize() {	
 	
 	// check if cookie favorite filter is set
 	if(getCookie("lastFilter") == ""){
 		// set last filter to no filter
-		document.cookie="lastFilter=0";
+		
+		createCookie('lastFilter','0', 20);
+		//document.cookie="lastFilter=0";
 		
 		lastFilter = 0;		
 		
@@ -33,7 +36,7 @@ function initialize() {
 	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
-	alert((currentFilterPos+1) + "/" + filters.length + " " + currentFilter);
+	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	
 	// TODO always update last filter
 }
@@ -70,13 +73,14 @@ function buttonForwardPressed() {
 
 function switchFilter() {		
 	//update last used filter to cookie
-	document.cookie="lastFilter=" + currentFilterPos;
+	//document.cookie="lastFilter=" + currentFilterPos;
+	createCookie('lastFilter',currentFilterPos, 20);
 	
 	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);	
 	
 	//TODO: Make toast for which filter is set instead of alert
-	alert((currentFilterPos+1) + "/" + filters.length + " " + currentFilter);
+	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 }
 
 function buttonNewPicturePressed() {			
@@ -132,13 +136,14 @@ function showStream() {
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
+	var videoSource = null;
+
+	/*
+	
 	if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 		console.log("enumerateDevices() not supported.");	
 	}
 	
-	var videoSource = null;
-
-	/*
 	//list cameras and microphones.
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
 		devices.forEach(function(device) {
@@ -170,11 +175,15 @@ function showStream() {
 				
 				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 
+				sourceCounter++;					
+				
 				sources.push(sourceInfo.id);
 				videoSource = sourceInfo.id;
 			} else {
 				// Handle other source
 			}
+			
+			alert(sourceCounter);
 		}
 		sourceSelected(sources[1]);
 	}); 
@@ -226,6 +235,16 @@ function getDate() {
 	var today = day + "." + month + "." + year;
 	
 	return today;
+}
+
+function createCookie(name,value,days) {
+     if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+     }
+     else var expires = "";
+     document.cookie = name+"="+value+expires+";";
 }
 
 function getCookie(cname) {
