@@ -11,6 +11,7 @@ var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100
 // current source
 var currentSource = 0;
 var sourceCounter = 0;
+var numberOfSources = 0;
 
 function initialize() {	
 	
@@ -115,13 +116,13 @@ function loadSources() {
 function buttonSwitchKameraPressed() {			
 	//alert("buttonSwitchKameraPressed");	
 	
-	alert(currentSource + "/" + sourceCounter);
+	alert(currentSource + "/" + numberOfSources);
 	
 	currentSource++;
 	
-	alert(currentSource + "/" + sourceCounter);
+	alert(currentSource + "/" + numberOfSources);
 	
-	if (currentSource > sourceCounter) {
+	if (currentSource > numberOfSources) {
 		currentSource = 0;		
 	}
 	
@@ -132,6 +133,8 @@ function showStream() {
 
 	//getting the video element
 	var video = document.querySelector('video');
+	sourceCounter = 0;
+	numberOfSources = 0;
 	
 	//callback function
 	var errorCallback = function(e) {
@@ -185,6 +188,7 @@ function showStream() {
 				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
 				
 				sourceCounter++;
+				numberOfSources++;
 				
 				alert(currentSource + "/" + sourceCounter);	
 				
