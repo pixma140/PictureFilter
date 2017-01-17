@@ -33,7 +33,7 @@ function initialize() {
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 		
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
 	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -76,7 +76,8 @@ function switchFilter() {
 	//document.cookie="lastFilter=" + currentFilterPos;
 	createCookie('lastFilter',currentFilterPos, 20);
 	
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myPic").setAttribute("style", "-webkit-filter:" + currentFilter);
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);	
 	
 	//TODO: Make toast for which filter is set instead of alert
@@ -138,11 +139,11 @@ function showStream() {
 
 	var videoSource = null;
 
-	/*
-	
 	if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 		console.log("enumerateDevices() not supported.");	
 	}
+	
+	/*	
 	
 	//list cameras and microphones.
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
@@ -175,15 +176,16 @@ function showStream() {
 				
 				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 
-				sourceCounter++;					
+				sourceCounter++;
+
+				alert(sourceCounter);				
 				
 				sources.push(sourceInfo.id);
 				videoSource = sourceInfo.id;
 			} else {
 				// Handle other source
-			}
+			}		
 			
-			alert(sourceCounter);
 		}
 		sourceSelected(sources[1]);
 	}); 
