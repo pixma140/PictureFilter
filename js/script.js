@@ -10,8 +10,6 @@ var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100
 
 // current source
 var currentSource = 0;
-// array with all video sources
-var sources = new Array();
 var sourceCounter = 0;
 
 function initialize() {	
@@ -115,8 +113,19 @@ function loadSources() {
 }
 
 function buttonSwitchKameraPressed() {			
-	alert("buttonSwitchKameraPressed");
+	//alert("buttonSwitchKameraPressed");	
 	
+	alert(currentSource + "/" + sourceCounter);
+	
+	currentSource++;
+	
+	alert(currentSource + "/" + sourceCounter);
+	
+	if (currentSource > sourceCounter) {
+		currentSource = 0;		
+	}
+	
+	showStream();	
 }
 
 function showStream() {
@@ -136,14 +145,15 @@ function showStream() {
   
 	//cross browser taking user media
 	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
-	var videoSource = null;
-
+	
+	//zurückkommentieren wenn fail
+	//var videoSource = null;
+	
+	/*	
+	
 	if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
 		console.log("enumerateDevices() not supported.");	
 	}
-	
-	/*	
 	
 	//list cameras and microphones.
 	navigator.mediaDevices.enumerateDevices().then(function(devices) {
@@ -174,23 +184,24 @@ function showStream() {
 			} else if (sourceInfo.kind === 'video') {
 				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
 				
-				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
-
 				sourceCounter++;
-
-				alert(sourceCounter);				
 				
-				sources.push(sourceInfo.id);
-				videoSource = sourceInfo.id;
+				alert(currentSource + "/" + sourceCounter);	
+				
+				if (currentSource == sourceCounter) {
+					alert("i am here");
+					videoSource = sourceInfo.id;
+					break;
+				}
+				
+				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 			} else {
 				// Handle other source
 			}		
 			
 		}
-		sourceSelected(sources[1]);
+		sourceSelected(videoSource);
 	}); 
-	
-	//alert(sources.length);
 
 	function sourceSelected(videoSource) {
 		var constraints = {
