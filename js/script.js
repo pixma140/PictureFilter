@@ -1,29 +1,40 @@
-// start page with last filter = 0; 0 is no filter
-var lastFilter = 0;
-
 // current filter vars
-var currentFilterPos = 0;
-//TODO: add more filters
-var filters = new Array("grayscale(50%)","hue-rotate(180deg)","invert(100%)","opacity(50%)","saturate(250%)","sepia(100%)","contrast(50%)","brightness(10%)","blur(3px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
-var currentFilter = filters[0];
+var lastFilter;
+var currentFilter;
+var currentFilterPos;
 
+//TODO: add more filters
+//array containing the filters
+var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100%)","opacity(50%)","blur(3px)","saturate(250%)","grayscale(100%)","sepia(100%)","contrast(50%)","brightness(50%)","blur(5px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
+
+
+// current source
+var currentSource = 0;
 // array with all video sources
 var sources = new Array();
 
-// current source
-var currentSource;
-
-function initialize() {
+function initialize() {	
 	
 	// check if cookie favorite filter is set
 	if(getCookie("lastFilter") == ""){
 		// set last filter to no filter
-		document.cookie="lastFilter=0";				
+		document.cookie="lastFilter=0";
+		
+		lastFilter = 0;		
+		
 	} else {
 		// get last filter
-		lastFilter = getCookie("lastFilter");
+		lastFilter = getCookie("lastFilter");			
 	}
+	
+	currentFilterPos = lastFilter;
+	currentFilter = filters[lastFilter];
 		
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
+	
+	alert((currentFilterPos+1) + "/" + filters.length + " " + currentFilter);
+	
 	// TODO always update last filter
 }
 
@@ -50,23 +61,22 @@ function buttonForwardPressed() {
 	if (currentFilterPos == filters.length) {
 		currentFilterPos = 0;
 		currentFilter = filters[currentFilterPos];
-	} else {
+	} else {		
 		currentFilter = filters[currentFilterPos];
 	}	
 	
 	switchFilter();
 }
 
-function switchFilter() {
-	//alert(currentFilterPos + "/" + filters.length + " " + currentFilter);
+function switchFilter() {		
+	//update last used filter to cookie
+	document.cookie="lastFilter=" + currentFilterPos;
 	
-	document.getElementById("myPic").setAttribute("style", "-webkit-filter:" + currentFilter);
-	document.getElementById("myVideo").setAttribute("style", "-webkit-filter:" + currentFilter);
-}
-
-function buttonSwitchKameraPressed() {			
-	alert("buttonSwitchKameraPressed");
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);	
 	
+	//TODO: Make toast for which filter is set instead of alert
+	alert((currentFilterPos+1) + "/" + filters.length + " " + currentFilter);
 }
 
 function buttonNewPicturePressed() {			
@@ -97,6 +107,11 @@ function setFavoriteFilter() {
 function loadSources() {
 	
 	//alert(sources.length);
+}
+
+function buttonSwitchKameraPressed() {			
+	alert("buttonSwitchKameraPressed");
+	
 }
 
 function showStream() {
