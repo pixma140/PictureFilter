@@ -130,7 +130,8 @@ function buttonSwitchKameraPressed() {
 	alert(currentSource + "/" + numberOfSources);
 	
 	//window.location.reload();
-	showStream();	
+	//showStream();	
+	doStuff();
 }
 
 function doStuff() {
