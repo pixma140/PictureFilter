@@ -129,8 +129,65 @@ function buttonSwitchKameraPressed() {
 	
 	alert(currentSource + "/" + numberOfSources);
 	
-	window.location.reload();
+	//window.location.reload();
 	showStream();	
+}
+
+function doStuff() {
+	//getting the video element
+	var video = document.querySelector('video');
+	//sourceCounter = 0;
+	//numberOfSources = 0;
+	
+	//callback function
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
+	
+	//stream function
+	var functionStream = function(stream) {
+		video.src = window.URL.createObjectURL(stream);
+	}
+  
+	//cross browser taking user media
+	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+		
+	MediaStreamTrack.getSources(function(sourceInfos) {
+		//var audioSource = null;
+		var videoSource = null;
+
+		for (var i = 0; i != sourceInfos.length; ++i) {
+			
+			var sourceInfo = sourceInfos[i];
+			
+			if (sourceInfo.kind === 'audio') {
+				//handle audio source				
+			} else if (sourceInfo.kind === 'video') {
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
+				
+				sourceCounter++;
+				numberOfSources++;
+								
+				alert("i am here");
+				videoSource = sourceInfo.id;
+				break;
+				
+				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
+			} else {
+				// Handle other source
+			}		
+			
+		}
+		sourceSelected(videoSource);
+	}); 
+
+	function sourceSelected(videoSource) {
+		var constraints = {
+			audio: false,
+			video: {optional: [{sourceId: videoSource}]}
+		};
+		navigator.getUserMedia(constraints, functionStream, errorCallback);
+	} 
 }
 
 function showStream() {
@@ -194,13 +251,13 @@ function showStream() {
 				sourceCounter++;
 				numberOfSources++;
 				
-				alert(currentSource + "/" + sourceCounter);	
+				alert(currentSource + "/" + numberOfSources);	
 				
-				if (currentSource == sourceCounter) {
-					alert("i am here");
+				//if (currentSource == sourceCounter) {
+					//alert("i am here");
 					videoSource = sourceInfo.id;
-					break;
-				}
+					//break;
+				//}
 				
 				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 			} else {
