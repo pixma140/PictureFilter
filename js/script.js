@@ -135,6 +135,7 @@ function buttonSwitchKameraPressed() {
 }
 
 function doStuff() {
+	
 	//getting the video element
 	var video = document.querySelector('video');
 	//sourceCounter = 0;
@@ -171,7 +172,7 @@ function doStuff() {
 								
 				alert("i am here");
 				videoSource = sourceInfo.id;
-				break;
+				//break;
 				
 				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 			} else {
@@ -191,6 +192,7 @@ function doStuff() {
 	} 
 }
 
+//loads last camera to video
 function showStream() {
 
 	//getting the video element
