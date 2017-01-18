@@ -83,6 +83,10 @@ function switchFilter() {
 	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 }
 
+function buttonBackPressed() {
+	alert("buttonBackPressed");
+}
+
 function buttonNewPicturePressed() {			
 	alert("buttonNewPicturePressed");
 	
@@ -108,8 +112,7 @@ function setFavoriteFilter() {
 	// set current filter to favorite filter cookie
 }
 
-function loadSources() {
-	
+function loadSources() {	
 	//alert(sources.length);
 }
 
@@ -120,12 +123,13 @@ function buttonSwitchKameraPressed() {
 	
 	currentSource++;
 	
-	alert(currentSource + "/" + numberOfSources);
-	
 	if (currentSource > numberOfSources) {
 		currentSource = 0;		
 	}
 	
+	alert(currentSource + "/" + numberOfSources);
+	
+	window.location.reload();
 	showStream();	
 }
 
