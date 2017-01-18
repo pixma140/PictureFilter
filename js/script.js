@@ -156,7 +156,7 @@ function doStuff() {
 		
 	MediaStreamTrack.getSources(function(sourceInfos) {
 		//var audioSource = null;
-		var videoSource = null;
+		var videoSourcee = null;
 
 		for (var i = 0; i != sourceInfos.length; ++i) {
 			
@@ -171,8 +171,13 @@ function doStuff() {
 				numberOfSources++;
 								
 				alert("i am here");
-				videoSource = sourceInfo.id;
+				videoSourcee = sourceInfo.id;
 				//break;
+				
+				if (sourceCounter == 1) {
+					sourcesSelected(videoSourcee);
+				}
+				
 				
 				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
 			} else {
@@ -180,13 +185,13 @@ function doStuff() {
 			}		
 			
 		}
-		sourceSelected(videoSource);
+		//sourcesSelected(videoSourcee);
 	}); 
 
-	function sourceSelected(videoSource) {
+	function sourcesSelected(videoSourcee) {
 		var constraints = {
 			audio: false,
-			video: {optional: [{sourceId: videoSource}]}
+			video: {optional: [{sourceId: videoSourcee}]}
 		};
 		navigator.getUserMedia(constraints, functionStream, errorCallback);
 	} 
