@@ -175,7 +175,8 @@ function doStuff() {
 				//break;
 				
 				if (sourceCounter == 1) {
-					alert("i am hereee");
+					//alert("i am hereee");
+					alert(videoSourcee + "/");
 					sourcesSelected(videoSourcee);
 				}
 				
