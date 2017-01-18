@@ -129,7 +129,7 @@ function buttonSwitchKameraPressed() {
 	
 	alert(currentSource + "/" + numberOfSources);
 	
-	//window.location.reload();
+	location.reload(true);
 	//showStream();	
 	doStuff();
 }
@@ -138,8 +138,8 @@ function doStuff() {
 	
 	//getting the video element
 	var video = document.querySelector('video');
-	//sourceCounter = 0;
-	//numberOfSources = 0;
+	sourceCounter = 0;
+	numberOfSources = 0;
 	
 	//callback function
 	var errorCallback = function(e) {
@@ -170,11 +170,12 @@ function doStuff() {
 				sourceCounter++;
 				numberOfSources++;
 								
-				alert("i am here");
+				
 				videoSourcee = sourceInfo.id;
 				//break;
 				
 				if (sourceCounter == 1) {
+					alert("i am hereee");
 					sourcesSelected(videoSourcee);
 				}
 				
