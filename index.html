@@ -30,16 +30,22 @@
 	<section>
 
 		<p>
-			<video id="myVideo" poster="img\pokemon.jpg" autoplay></video>
-			<img id="myFramePicture" src="">
+			<video id="myVideo" autoplay></video>				
+		</p>
+		
+		<p>			
 			<canvas style="display:none;"></canvas>
+		</p>
+		
+		<p>
+			<img id="myFramePicture" src="" width="25%" height="25%"></img>
 		</p>
 		
 		<script>
 			showStream();			
 		</script>
 		
-		<!-- <p><img src="img\pokemon.jpg" id="myPic" width="25%" height="25%" alt="Logo" title="Logo"></p> -->
+		<p><img src="img\pokemon.jpg" id="myPic" width="25%" height="25%" alt="Logo" title="Logo"></img></p>
 	
 	</section>	
 
@@ -49,13 +55,16 @@
 			<input type="button" value="Forward" id="buttonForward" onclick="buttonForwardPressed()"/>
 		</p>
 		
-		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
+		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>		
 		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>
+		
+		<script>
+			document.getElementById('buttonBack').style.display = "none";
+			document.getElementById('buttonSave').style.display = "none";
+		</script>
+		
 	</footer>
-	
-	<script>initialize()</script>
-	
-	<!-- debug text view -->
-	<!-- <p><input type="text" readonly id="debug" value="Debug Text View"/></p> -->
+
+	<script>initialize()</script>	
 </body>
 </html>

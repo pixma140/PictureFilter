@@ -7,7 +7,6 @@ var currentFilterPos;
 //array containing the filters
 var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100%)","opacity(50%)","blur(3px)","saturate(250%)","grayscale(100%)","sepia(100%)","contrast(50%)","brightness(50%)","blur(5px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
 
-
 // current source
 var currentSource = 0;
 var sourceCounter = 0;
@@ -32,93 +31,43 @@ function initialize() {
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 		
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
-	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
+	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	
 	// TODO always update last filter
 }
 
-function buttonBackwardPressed() {
-	//alert("buttonBackwardPressed");
+// function that handles back button
+function buttonBackPressed() {	
+	document.getElementById('buttonNewPicture').style.display = "block";
+	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('buttonBack').style.display = "none";
+	document.getElementById('buttonSave').style.display = "none";
 	
-	currentFilterPos--;		
-	
-	if (currentFilterPos == -1) {
-		currentFilterPos = filters.length-1;
-		currentFilter = filters[currentFilterPos];
-	} else {
-		currentFilter = filters[currentFilterPos];
-	}
-	
-	switchFilter();
+	//TODO button back pressed routine, put canvas away and show stream again
 }
 
-function buttonForwardPressed() {
-	//alert("buttonBackwardPressed");
-	
-	currentFilterPos++;
-	
-	if (currentFilterPos == filters.length) {
-		currentFilterPos = 0;
-		currentFilter = filters[currentFilterPos];
-	} else {		
-		currentFilter = filters[currentFilterPos];
-	}	
-	
-	switchFilter();
-}
-
+// function that switches filters
 function switchFilter() {		
 	//update last used filter to cookie
 	//document.cookie="lastFilter=" + currentFilterPos;
-	createCookie('lastFilter',currentFilterPos, 20);
-	
-	//document.getElementById("myPic").setAttribute("style", "-webkit-filter:" + currentFilter);
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	createCookie('lastFilter',currentFilterPos, 20);	
+
+	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);	
 	
 	//TODO: Make toast for which filter is set instead of alert
-	alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
+	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 }
 
-function buttonBackPressed() {
-	alert("buttonBackPressed");
-}
-
-function buttonNewPicturePressed() {			
-	alert("buttonNewPicturePressed");
-	
-	var video = document.querySelector('video');
-	var canvas = document.querySelector('canvas');
-	var ctx = canvas.getContext('2d');
-	
-	if (localMediaStream) {
-      ctx.drawImage(video, 0, 0);
-      // "image/webp" works in Chrome.
-      // Other browsers will fall back to image/png.
-      document.getElementById('myFramePicture').src = canvas.toDataURL('image/webp');
-    }
-}
-
-function buttonSavePressed() {
-   alert("buttonSavePressed");
-   
-   // save images with date
-}
-
-function setFavoriteFilter() {
-	// set current filter to favorite filter cookie
-}
-
-function loadSources() {	
-	//alert(sources.length);
-}
-
+// function to handle camera switch
 function buttonSwitchKameraPressed() {			
-	//alert("buttonSwitchKameraPressed");	
+	alert("buttonSwitchKameraPressed");	
 	
+	/*
 	alert(currentSource + "/" + numberOfSources);
 	
 	currentSource++;
@@ -131,72 +80,57 @@ function buttonSwitchKameraPressed() {
 	
 	location.reload(true);
 	//showStream();	
-	doStuff();
+	doStuff(); */
 }
 
-function doStuff() {
+// function to take snapshot from video
+function buttonNewPicturePressed() {
+	//alert("buttonNewPicturePressed");
 	
-	//getting the video element
+	document.getElementById('buttonNewPicture').style.display = "none";
+	document.getElementById('buttonSwitchCamera').style.display = "none";
+	document.getElementById('buttonBack').style.display = "block";
+	document.getElementById('buttonSave').style.display = "block";
+	
 	var video = document.querySelector('video');
-	sourceCounter = 0;
-	numberOfSources = 0;
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
 	
-	//callback function
-	var errorCallback = function(e) {
-		alert("No camera found!");
-	};
+	alert("ich komme bis hier");
+	document.getElementById('myFramePicture').src = "img\pokemon.jpg";
 	
-	//stream function
-	var functionStream = function(stream) {
-		video.src = window.URL.createObjectURL(stream);
-	}
-  
-	//cross browser taking user media
-	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-		
-	MediaStreamTrack.getSources(function(sourceInfos) {
-		//var audioSource = null;
-		var videoSourcee = null;
+	var localMediaStream = null;
+	
+	if (localMediaStream) {
+		alert("i have a stream");
+		ctx.drawImage(video, 0, 0);
+		alert("i have drawen context");
+		// "image/webp" works in Chrome.
+		// Other browsers will fall back to image/png.
+		//document.getElementById('myFramePicture').src = "img\pokemon.jpg";
+		//document.getElementById('myFramePicture').src = canvas.toDataURL('image/webp');
+		alert("i have set image");
+    }
+}
 
-		for (var i = 0; i != sourceInfos.length; ++i) {
-			
-			var sourceInfo = sourceInfos[i];
-			
-			if (sourceInfo.kind === 'audio') {
-				//handle audio source				
-			} else if (sourceInfo.kind === 'video') {
-				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
-				
-				sourceCounter++;
-				numberOfSources++;
-								
-				
-				videoSourcee = sourceInfo.id;
-				//break;
-				
-				if (sourceCounter == 1) {
-					//alert("i am hereee");
-					alert(videoSourcee + "/");
-					sourcesSelected(videoSourcee);
-				}
-				
-				
-				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
-			} else {
-				// Handle other source
-			}		
-			
-		}
-		//sourcesSelected(videoSourcee);
-	}); 
+// function to handdle save pressed
+function buttonSavePressed() {
+   alert("buttonSavePressed");
+   
+	document.getElementById('buttonNewPicture').style.display = "block";
+	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('buttonBack').style.display = "none";
+	document.getElementById('buttonSave').style.display = "none";
+   
+   // save images with date
+}
 
-	function sourcesSelected(videoSourcee) {
-		var constraints = {
-			audio: false,
-			video: {optional: [{sourceId: videoSourcee}]}
-		};
-		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	} 
+function setFavoriteFilter() {
+	// set current filter to favorite filter cookie
+}
+
+function loadSources() {	
+	//alert(sources.length);
 }
 
 //loads last camera to video
@@ -287,6 +221,7 @@ function showStream() {
 	} 
 }
 
+
 var pos = 0;
 var lastAction=new Date();
 var myField = ["1","2","3","4","5","6"];
@@ -310,6 +245,7 @@ function turnIt(event){
 
 window.addEventListener("deviceorientation", turnIt, true);
 
+// function to get date
 function getDate() {
 	var date = new Date();
 
@@ -325,6 +261,7 @@ function getDate() {
 	return today;
 }
 
+// function to create cookie
 function createCookie(name,value,days) {
      if (days) {
         var date = new Date();
@@ -335,6 +272,7 @@ function createCookie(name,value,days) {
      document.cookie = name+"="+value+expires+";";
 }
 
+// function to get cookie
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');
@@ -348,4 +286,103 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+// function that handles backward button
+function buttonBackwardPressed() {
+	//alert("buttonBackwardPressed");
+	
+	currentFilterPos--;		
+	
+	if (currentFilterPos == -1) {
+		currentFilterPos = filters.length-1;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}
+	
+	switchFilter();
+}
+
+
+// function that handles forward button
+function buttonForwardPressed() {
+	//alert("buttonBackwardPressed");
+	
+	currentFilterPos++;
+	
+	if (currentFilterPos == filters.length) {
+		currentFilterPos = 0;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}	
+	
+	switchFilter();
+}
+
+// do stuff
+function doStuff() {
+	
+	//getting the video element
+	var video = document.querySelector('video');
+	sourceCounter = 0;
+	numberOfSources = 0;
+	
+	//callback function
+	var errorCallback = function(e) {
+		alert("No camera found!");
+	};
+	
+	//stream function
+	var functionStream = function(stream) {
+		video.src = window.URL.createObjectURL(stream);
+	}
+  
+	//cross browser taking user media
+	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+		
+	MediaStreamTrack.getSources(function(sourceInfos) {
+		//var audioSource = null;
+		var videoSourcee = null;
+
+		for (var i = 0; i != sourceInfos.length; ++i) {
+			
+			var sourceInfo = sourceInfos[i];
+			
+			if (sourceInfo.kind === 'audio') {
+				//handle audio source				
+			} else if (sourceInfo.kind === 'video') {
+				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
+				
+				sourceCounter++;
+				numberOfSources++;
+								
+				
+				videoSourcee = sourceInfo.id;
+				//break;
+				
+				if (sourceCounter == 1) {
+					//alert("i am hereee");
+					alert(videoSourcee + "/");
+					sourcesSelected(videoSourcee);
+				}
+				
+				
+				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
+			} else {
+				// Handle other source
+			}		
+			
+		}
+		//sourcesSelected(videoSourcee);
+	}); 
+
+	function sourcesSelected(videoSourcee) {
+		var constraints = {
+			audio: false,
+			video: {optional: [{sourceId: videoSourcee}]}
+		};
+		navigator.getUserMedia(constraints, functionStream, errorCallback);
+	} 
 }
