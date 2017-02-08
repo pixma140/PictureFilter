@@ -86,6 +86,36 @@ function buttonSwitchKameraPressed() {
 	doStuff(); */
 }
 
+// function to take snapshot from video
+function buttonNewPicturePressed() {
+	//alert("buttonNewPicturePressed");
+	
+	document.getElementById('buttonNewPicture').style.display = "none";
+	document.getElementById('buttonSwitchCamera').style.display = "none";
+	document.getElementById('buttonBack').style.display = "block";
+	document.getElementById('buttonSave').style.display = "block";
+	
+	var video = document.querySelector('video');
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+	
+	alert("ich komme bis hier");
+	document.getElementById('myFramePicture').src = "img\pokemon.jpg";
+	
+	//var localMediaStream = null;
+	
+	if (localMediaStream) {
+		alert("i have a stream");
+		ctx.drawImage(video, 0, 0);
+		alert("i have drawn context");
+		// "image/webp" works in Chrome.
+		// Other browsers will fall back to image/png.
+		//document.getElementById('myFramePicture').src = "img\pokemon.jpg";
+		document.getElementById('myFramePicture').src = canvas.toDataURL('image/webp');
+		alert("i have set image");
+	}
+}
+
 // function to handdle save pressed
 function buttonSavePressed() {
    alert("buttonSavePressed");
@@ -191,37 +221,7 @@ function showStream() {
 			video: {optional: [{sourceId: videoSource}]}
 		};
 		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	} 
-	
-	// function to take snapshot from video
-	function buttonNewPicturePressed() {
-		//alert("buttonNewPicturePressed");
-		
-		document.getElementById('buttonNewPicture').style.display = "none";
-		document.getElementById('buttonSwitchCamera').style.display = "none";
-		document.getElementById('buttonBack').style.display = "block";
-		document.getElementById('buttonSave').style.display = "block";
-		
-		var video = document.querySelector('video');
-		var canvas = document.querySelector('canvas');
-		var ctx = canvas.getContext('2d');
-		
-		alert("ich komme bis hier");
-		document.getElementById('myFramePicture').src = "img\pokemon.jpg";
-		
-		//var localMediaStream = null;
-		
-		if (localMediaStream) {
-			alert("i have a stream");
-			ctx.drawImage(video, 0, 0);
-			alert("i have drawn context");
-			// "image/webp" works in Chrome.
-			// Other browsers will fall back to image/png.
-			//document.getElementById('myFramePicture').src = "img\pokemon.jpg";
-			document.getElementById('myFramePicture').src = canvas.toDataURL('image/webp');
-			alert("i have set image");
-		}
-	}
+	} 	
 }
 
 
