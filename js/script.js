@@ -5,7 +5,7 @@ var currentFilterPos;
 
 //TODO: add more filters
 //array containing the filters
-var filters = new Array("none","grayscale(50%)","hue-rotate(180deg)","invert(100%)","opacity(50%)","blur(3px)","saturate(250%)","grayscale(100%)","sepia(100%)","contrast(50%)","brightness(50%)","blur(5px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
+var filters = new Array("none","grayscale(50%)","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)","opacity(50%)","blur(3px)","saturate(250%)","grayscale(100%)","sepia(100%)","contrast(50%)","brightness(50%)","blur(5px)","drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
 
 // current source
 var currentSource = 0;
