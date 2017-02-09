@@ -104,6 +104,7 @@ function buttonNewPicturePressed() {
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
+	document.getElementById('myCanvas').style.display = "block";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
