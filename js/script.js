@@ -56,6 +56,14 @@ function switchFilter() {
 	//update last used filter to cookie
 	//document.cookie="lastFilter=" + currentFilterPos;
 	createCookie('lastFilter',currentFilterPos, 20);	
+	
+	navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+	
+	if ("vibrate" in navigator) {		
+		navigator.vibrate(500);		
+	} else {
+		alert("Vibration not supported");
+	}
 
 	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
