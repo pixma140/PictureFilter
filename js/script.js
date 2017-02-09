@@ -118,22 +118,9 @@ function buttonNewPicturePressed() {
 	// get context
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
-	
-	var img = document.createElement("img");
-	img.src = canvas.toDataURL("image/png");
-	
-	img.width = canvas.width;
-	img.height = canvas.height;	
-	
-	// img.width = canvas.width / 2;
-	// img.height = canvas.height / 2;
-	
-	// filmroll.removeChild('myFramePicture');
-	img.id = myFramePicture;
-	
+			
 	myPic.src = canvas.toDataURL("image/png");
-	filmroll.appendChild(img);
-		
+			
 	alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
 }
