@@ -57,10 +57,11 @@ function switchFilter() {
 	//document.cookie="lastFilter=" + currentFilterPos;
 	createCookie('lastFilter',currentFilterPos, 20);	
 	
+	//TODO: make vibration work everywhere
 	window.navigator.vibrate = window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
 	
 	if ("vibrate" in window.navigator) {		
-		window.navigator.vibrate(500);		
+		window.navigator.vibrate(300);		
 	} else {
 		alert("Vibration not supported");
 	}
@@ -98,30 +99,43 @@ function buttonSwitchKameraPressed() {
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
 	
+	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	
-	var video = document.querySelector('video');
+	// get stuff
+	var myVideo = document.querySelector('video');
 	var canvas = document.querySelector('canvas');
-	var ctx = canvas.getContext('2d');
+	var filmroll = document.getElementById("filmroll");
+	var myPic = document.getElementById('myFramePicture');
+        
+	// set canvas stuff
+	canvas.width = myVideo.clientWidth;
+	canvas.height = myVideo.clientHeight;
 	
+	// get context
+	var c = canvas.getContext("2d");
+	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
+	
+	var img = document.createElement("img");
+	img.src = canvas.toDataURL("image/png");
+	
+	img.width = canvas.width;
+	img.height = canvas.height;	
+	
+	// img.width = canvas.width / 2;
+	// img.height = canvas.height / 2;
+	
+	// filmroll.removeChild('myFramePicture');
+	img.id = myFramePicture;
+	
+	myPic.src = canvas.toDataURL("image/png");
+	filmroll.appendChild(img);
+		
 	alert("ich komme bis hier");
-	document.getElementById('myFramePicture').src = "img\pokemon.jpg";
-	
-	//var localMediaStream = null;
-	
-	if (localMediaStream) {
-		alert("i have a stream");
-		ctx.drawImage(video, 0, 0);
-		alert("i have drawn context");
-		// "image/webp" works in Chrome.
-		// Other browsers will fall back to image/png.
-		//document.getElementById('myFramePicture').src = "img\pokemon.jpg";
-		document.getElementById('myFramePicture').src = canvas.toDataURL('image/webp');
-		alert("i have set image");
-	}
+	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
 }
 
 // function to handdle save pressed
