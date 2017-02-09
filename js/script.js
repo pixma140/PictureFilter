@@ -57,10 +57,10 @@ function switchFilter() {
 	//document.cookie="lastFilter=" + currentFilterPos;
 	createCookie('lastFilter',currentFilterPos, 20);	
 	
-	navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+	window.navigator.vibrate = window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
 	
-	if ("vibrate" in navigator) {		
-		navigator.vibrate(500);		
+	if ("vibrate" in window.navigator) {		
+		window.navigator.vibrate(500);		
 	} else {
 		alert("Vibration not supported");
 	}
