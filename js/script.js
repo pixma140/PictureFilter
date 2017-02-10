@@ -108,8 +108,7 @@ function buttonNewPicturePressed() {
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
-	var canvas = document.querySelector('canvas');
-	var filmroll = document.getElementById("filmroll");
+	var canvas = document.querySelector('canvas');	
 	var myPic = document.getElementById('myFramePicture');
         
 	// set canvas stuff
@@ -120,7 +119,7 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 			
-	myPic.src = canvas.toDataURL("image/png");
+	//myPic.src = canvas.toDataURL("image/png");
 			
 	alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
