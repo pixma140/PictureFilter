@@ -48,8 +48,10 @@ function buttonBackPressed() {
 	
 	inTakePicture = false;
 	
+	document.getElementById('myVideo').style.display = "center";
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('canvas').style.display = "none";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
@@ -121,6 +123,7 @@ function buttonNewPicturePressed() {
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	document.getElementById('myCanvas').style.display = "center";
+	document.getElementById('myVideo').style.display = "none";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -143,13 +146,17 @@ function buttonNewPicturePressed() {
 
 // function to handdle save pressed
 function buttonSavePressed() {
-   //alert("buttonSavePressed");
-   inTakePicture = false;
-   
+	//alert("buttonSavePressed");
+	inTakePicture = false;	
+	
+	document.getElementById('myVideo').style.display = "center";
+	document.getElementById('myVideo').poster = "img\\pokemon.jpg";
+	
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('myCanvas').style.display = "none";
    
    // save images with date
 }
