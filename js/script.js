@@ -266,21 +266,19 @@ function turnIt(event){
 	var minGamma = 25;
 	var resetGamma = 15;
 	var gamma = event.gamma;
-	
-	if (gamma >= -resetGamma && gamma <= resetGamma) lastGamma = 0;	
-	if (lastGamma <= -minGamma && gamma <= -minGamma) return;
-	if (lastGamma >= minGamma && gamma >= minGamma) return;
-	
-	if (gamma >= minGamma || gamma <= -minGamma) {
-		
+	if (gamma>=-resetGamma && gamma <= resetGamma) lastGamma=0;
+	if (lastGamma<=-minGamma && gamma <=-minGamma) return;
+	if (lastGamma>=minGamma && gamma >=minGamma) return;
+	if (gamma>=minGamma || gamma<=-minGamma) {
 		pos += gamma > 0 ? 1 : -1;
-		
 		if (pos == 1) {
 			buttonForwardPressed();
+			alert("forward");
 		} else {
 			buttonBackPressed();
+			alert("backward");
 		}
-		lastGamma = gamma;
+		lastGamma=gamma;
 	}
 }
 
