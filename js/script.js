@@ -263,7 +263,7 @@ var lastGamma = 0;
 window.addEventListener("deviceorientation", turnIt, true);
 
 function turnIt(event){
-	var minGamma = 25;
+	var minGamma = 50;
 	var resetGamma = 15;
 	var gamma = event.gamma;
 	if (gamma>=-resetGamma && gamma <= resetGamma) lastGamma=0;
@@ -271,17 +271,7 @@ function turnIt(event){
 	if (lastGamma>=minGamma && gamma >=minGamma) return;
 	if (gamma>=minGamma || gamma<=-minGamma) {
 		
-		gamma > 0 ? buttonForwardPressed() : buttonBackwardPressed();
-		
-		/*
-		pos += gamma > 0 ? 1 : -1;
-		if (pos == 1) {
-			buttonForwardPressed();
-			alert("forward");
-		} else {
-			buttonBackwardPressed();
-			alert("backward");
-		} */
+		gamma > 0 ? buttonBackwardPressed() : buttonForwardPressed();
 		
 		lastGamma = gamma;
 	}
