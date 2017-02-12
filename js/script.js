@@ -51,7 +51,7 @@ function buttonBackPressed() {
 	document.getElementById('myVideo').style.display = "center";
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	document.getElementById('canvas').style.display = "none";
+	document.getElementById('myCanvas').style.display = "none";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
@@ -68,7 +68,7 @@ function switchFilter() {
 	window.navigator.vibrate = window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
 	
 	if ("vibrate" in window.navigator) {		
-		window.navigator.vibrate(300);		
+		window.navigator.vibrate(30);		
 	} else {
 		alert("Vibration not supported");
 	}
@@ -85,8 +85,7 @@ function switchFilter() {
 		document.getElementById('myVideo').style.display = "none";
 		document.getElementById('myCanvas').style.display = "center";
 	}
-	
-	
+		
 	//TODO: Make toast for which filter is set instead of alert
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
@@ -118,12 +117,12 @@ function buttonNewPicturePressed() {
 	inTakePicture = true;
 	
 	//button handling
+	document.getElementById('myVideo').style.display = "none";
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	document.getElementById('myCanvas').style.display = "center";
-	document.getElementById('myVideo').style.display = "none";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -138,7 +137,7 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 			
-	//myPic.src = canvas.toDataURL("image/png");
+	myPic.src = canvas.toDataURL("image/png");
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
