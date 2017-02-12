@@ -33,7 +33,8 @@ function initialize() {
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 		
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -47,14 +48,11 @@ function initialize() {
 function buttonBackPressed() {
 	
 	inTakePicture = false;
-	
-	document.getElementById('myVideo').style.display = "center";
+		
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	document.getElementById('myCanvas').style.display = "none";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
-	document.getElementById('myPic').style.display = "none";
 	
 	//TODO button back pressed routine, put canvas away and show stream again
 }
@@ -76,16 +74,17 @@ function switchFilter() {
 
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
-	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
+	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	
+	/*
 	if (!inTakePicture) {
 		document.getElementById('myCanvas').style.display = "none";
 		document.getElementById('myVideo').style.display = "center";
 	} else {
 		document.getElementById('myVideo').style.display = "none";
 		document.getElementById('myCanvas').style.display = "center";
-	}
+	} */
 		
 	//TODO: Make toast for which filter is set instead of alert
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -118,17 +117,15 @@ function buttonNewPicturePressed() {
 	inTakePicture = true;
 	
 	//button handling
-	document.getElementById('myVideo').style.display = "none";
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
-	document.getElementById('myCanvas').style.display = "center";
-	document.getElementById('myPic').style.display = "block";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
-	var canvas = document.querySelector('canvas');	
+	var canvas = document.querySelector('canvas');
+	var filmroll = document.getElementById("filmroll");
 	var myPic = document.getElementById('myFramePicture');
         
 	// set canvas stuff
@@ -138,9 +135,21 @@ function buttonNewPicturePressed() {
 	// get context
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
-			
+	
+	var img = document.createElement("img");
+	img.src = canvas.toDataURL("image/png");
+	
+	img.width = canvas.width;
+	img.height = canvas.height;	
+	
+	// img.width = canvas.width / 2;
+	// img.height = canvas.height / 2;
+	
+	// filmroll.removeChild('myFramePicture');
+	img.id = myFramePicture;
+	
 	myPic.src = canvas.toDataURL("image/png");
-	//myPic.src = c.toDataURL("image/png");
+	filmroll.appendChild(img);
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
@@ -151,14 +160,11 @@ function buttonSavePressed() {
 	//alert("buttonSavePressed");
 	inTakePicture = false;	
 	
-	document.getElementById('myVideo').style.display = "center";
-	document.getElementById('myVideo').poster = "img\\pokemon.jpg";	
+	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
-	document.getElementById('myCanvas').style.display = "none";
-	document.getElementById('myPic').style.display = "none";
    
    // save images with date
 }
