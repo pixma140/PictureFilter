@@ -12,6 +12,8 @@ var currentSource = 0;
 var sourceCounter = 0;
 var numberOfSources = 0;
 
+var inTakePicture = false;
+
 function initialize() {	
 	
 	// check if cookie favorite filter is set
@@ -31,7 +33,7 @@ function initialize() {
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 		
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -42,7 +44,10 @@ function initialize() {
 }
 
 // function that handles back button
-function buttonBackPressed() {	
+function buttonBackPressed() {
+	
+	inTakePicture = false;
+	
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
@@ -66,9 +71,19 @@ function switchFilter() {
 		alert("Vibration not supported");
 	}
 
-	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
-	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);	
+	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
+	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
+	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	
+	if (!inTakePicture) {
+		document.getElementById('myCanvas').style.display = "none";
+		document.getElementById('myVideo').style.display = "center";
+	} else {
+		document.getElementById('myVideo').style.display = "none";
+		document.getElementById('myCanvas').style.display = "center";
+	}
+	
 	
 	//TODO: Make toast for which filter is set instead of alert
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -98,13 +113,14 @@ function buttonSwitchKameraPressed() {
 // function to take snapshot from video
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
+	inTakePicture = true;
 	
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
-	document.getElementById('myCanvas').style.display = "block";
+	document.getElementById('myCanvas').style.display = "center";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -121,13 +137,14 @@ function buttonNewPicturePressed() {
 			
 	//myPic.src = canvas.toDataURL("image/png");
 			
-	alert("ich komme bis hier");
+	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
 }
 
 // function to handdle save pressed
 function buttonSavePressed() {
-   alert("buttonSavePressed");
+   //alert("buttonSavePressed");
+   inTakePicture = false;
    
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
