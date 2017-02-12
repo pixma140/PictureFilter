@@ -124,7 +124,6 @@ function buttonNewPicturePressed() {
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
-	document.getElementById('myVideo').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	
@@ -141,6 +140,8 @@ function buttonNewPicturePressed() {
 	// get context
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
+	
+	document.getElementById('myVideo').style.display = "none";
 	
 	/*
 	var img = document.createElement("img");
