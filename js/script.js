@@ -149,7 +149,7 @@ function buttonNewPicturePressed() {
 	img.id = myFramePicture;
 	
 	myPic.src = canvas.toDataURL("image/png");
-	filmroll.appendChild(img);
+	//filmroll.appendChild(img);
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
