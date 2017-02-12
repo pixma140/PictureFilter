@@ -54,6 +54,7 @@ function buttonBackPressed() {
 	document.getElementById('myCanvas').style.display = "none";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('myPic').style.display = "none";
 	
 	//TODO button back pressed routine, put canvas away and show stream again
 }
@@ -123,6 +124,7 @@ function buttonNewPicturePressed() {
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	document.getElementById('myCanvas').style.display = "center";
+	document.getElementById('myPic').style.display = "center";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -137,7 +139,8 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 			
-	//myPic.src = canvas.toDataURL("image/png");
+	myPic.src = canvas.toDataURL("image/png");
+	myPic.src = c.toDataURL("image/png");
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
@@ -149,13 +152,13 @@ function buttonSavePressed() {
 	inTakePicture = false;	
 	
 	document.getElementById('myVideo').style.display = "center";
-	document.getElementById('myVideo').poster = "img\\pokemon.jpg";
-	
+	document.getElementById('myVideo').poster = "img\\pokemon.jpg";	
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	document.getElementById('myCanvas').style.display = "none";
+	document.getElementById('myPic').style.display = "none";
    
    // save images with date
 }
