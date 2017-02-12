@@ -256,24 +256,24 @@ function showStream() {
 	} 	
 }
 
+
 // device motion handling for filter change
-var pos = 0;
-var lastGamma = 0;
-//var lastAction = new Date();
 window.addEventListener("deviceorientation", turnIt, true);
 
-function turnIt(event){
-	var minGamma = 50;
-	var resetGamma = 15;
-	var gamma = event.gamma;
-	if (gamma>=-resetGamma && gamma <= resetGamma) lastGamma=0;
-	if (lastGamma<=-minGamma && gamma <=-minGamma) return;
-	if (lastGamma>=minGamma && gamma >=minGamma) return;
-	if (gamma>=minGamma || gamma<=-minGamma) {
-		
-		gamma > 0 ? buttonBackwardPressed() : buttonForwardPressed();
-		
-		lastGamma = gamma;
+var lastAction = new Date();
+
+function shakeIt() {
+	window.ondevicemotion = function(coords) {
+		var sensibility = 3;
+		var minTime = 500;
+		var accX = coords.acceleration.x;
+		var time = new Date();
+		if ((time - lastAction) < minTime) return;
+		if (accX >= sensibility || accX <= -sensibility) {
+			accX > 0 ? buttonBackwardPressed() : buttonForwardPressed();
+			
+			lastAction = time;
+		}
 	}
 }
 
