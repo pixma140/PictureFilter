@@ -137,7 +137,7 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 			
-	myPic.src = canvas.toDataURL("image/png");
+	//myPic.src = canvas.toDataURL("image/png");
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
@@ -271,7 +271,7 @@ function turnIt(event){
 	if (lastGamma>=minGamma && gamma >=minGamma) return;
 	if (gamma>=minGamma || gamma<=-minGamma) {
 	pos += gamma > 0 ? 1 : -1;
-	pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
+	//pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
 	alert("i am here");
 	document.getElementById('buttonSwitchCamera').value = myField[pos];
 	lastGamma=gamma;
