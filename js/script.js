@@ -55,6 +55,7 @@ function buttonBackPressed() {
 		
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('myVideo').style.display = "center";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
@@ -123,6 +124,7 @@ function buttonNewPicturePressed() {
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
+	document.getElementById('myVideo').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	
@@ -140,6 +142,7 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
+	/*
 	var img = document.createElement("img");
 	img.src = canvas.toDataURL("image/png");
 	
@@ -156,7 +159,7 @@ function buttonNewPicturePressed() {
 	//filmroll.appendChild(img);
 			
 	//alert("ich komme bis hier");
-	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
+	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	*/
 }
 
 // function to handdle save pressed
@@ -167,6 +170,7 @@ function buttonSavePressed() {
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('myVideo').style.display = "center";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
    
