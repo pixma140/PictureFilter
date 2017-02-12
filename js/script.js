@@ -124,7 +124,7 @@ function buttonNewPicturePressed() {
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	document.getElementById('myCanvas').style.display = "center";
-	document.getElementById('myPic').style.display = "center";
+	document.getElementById('myPic').style.display = "block";
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -140,7 +140,7 @@ function buttonNewPicturePressed() {
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 			
 	myPic.src = canvas.toDataURL("image/png");
-	myPic.src = c.toDataURL("image/png");
+	//myPic.src = c.toDataURL("image/png");
 			
 	//alert("ich komme bis hier");
 	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	
