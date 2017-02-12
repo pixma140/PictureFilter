@@ -256,11 +256,11 @@ function showStream() {
 	} 	
 }
 
-
+// device motion handling for filter change
 var pos = 0;
-var lastAction=new Date();
-var myField = ["1","2","3","4","5","6"];
-var lastGamma=0;
+var lastGamma = 0;
+//var lastAction = new Date();
+window.addEventListener("deviceorientation", turnIt, true);
 
 function turnIt(event){
 	var minGamma = 25;
@@ -271,14 +271,16 @@ function turnIt(event){
 	if (lastGamma>=minGamma && gamma >=minGamma) return;
 	if (gamma>=minGamma || gamma<=-minGamma) {
 	pos += gamma > 0 ? 1 : -1;
-	//pos = pos > images.length-1 ? 0 : pos < 0 ? images.length-1 : pos;
-	alert("i am here");
-	document.getElementById('buttonSwitchCamera').value = myField[pos];
+	if (pos == 1) {
+		buttonBackPressed();
+		alert("backward");
+	} else {
+		buttonForwardPressed();
+		alert("forward");
+	}
 	lastGamma=gamma;
 	}
 }
-
-window.addEventListener("deviceorientation", turnIt, true);
 
 // function to get date
 function getDate() {
