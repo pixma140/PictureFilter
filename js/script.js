@@ -270,15 +270,20 @@ function turnIt(event){
 	if (lastGamma<=-minGamma && gamma <=-minGamma) return;
 	if (lastGamma>=minGamma && gamma >=minGamma) return;
 	if (gamma>=minGamma || gamma<=-minGamma) {
+		
+		gamma > 0 ? buttonForwardPressed() : buttonBackwardPressed();
+		
+		/*
 		pos += gamma > 0 ? 1 : -1;
 		if (pos == 1) {
 			buttonForwardPressed();
 			alert("forward");
 		} else {
-			buttonBackPressed();
+			buttonBackwardPressed();
 			alert("backward");
-		}
-		lastGamma=gamma;
+		} */
+		
+		lastGamma = gamma;
 	}
 }
 
