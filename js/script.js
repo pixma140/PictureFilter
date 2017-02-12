@@ -68,7 +68,7 @@ function switchFilter() {
 	window.navigator.vibrate = window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
 	
 	if ("vibrate" in window.navigator) {		
-		window.navigator.vibrate(30);		
+		window.navigator.vibrate(50);		
 	} else {
 		alert("Vibration not supported");
 	}
@@ -258,8 +258,6 @@ function showStream() {
 
 
 // device motion handling for filter change
-//window.addEventListener("deviceorientation", shakeIt, true);
-
 var lastAction = new Date();
 
 function shakeIt() {
