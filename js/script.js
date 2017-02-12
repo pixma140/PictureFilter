@@ -55,7 +55,7 @@ function buttonBackPressed() {
 		
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	document.getElementById('myVideo').style.display = "center";
+	showStream();
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
@@ -131,7 +131,6 @@ function buttonNewPicturePressed() {
 	var myVideo = document.querySelector('video');
 	var canvas = document.querySelector('canvas');
 	var filmroll = document.getElementById("filmroll");
-	var myFramePicture = document.getElementById('myFramePicture');
         
 	// set canvas stuff
 	canvas.width = myVideo.clientWidth;
@@ -171,7 +170,7 @@ function buttonSavePressed() {
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	document.getElementById('myVideo').style.display = "center";
+	showStream();
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
    
