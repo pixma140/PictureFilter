@@ -258,7 +258,7 @@ function showStream() {
 
 
 // device motion handling for filter change
-window.addEventListener("deviceorientation", shakeIt, true);
+//window.addEventListener("deviceorientation", shakeIt, true);
 
 var lastAction = new Date();
 
@@ -270,6 +270,7 @@ function shakeIt() {
 		var time = new Date();
 		if ((time - lastAction) < minTime) return;
 		if (accX >= sensibility || accX <= -sensibility) {
+			alert("button switch");
 			accX > 0 ? buttonBackwardPressed() : buttonForwardPressed();
 			
 			lastAction = time;
