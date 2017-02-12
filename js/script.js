@@ -152,7 +152,7 @@ function buttonNewPicturePressed() {
 	// filmroll.removeChild('myFramePicture');
 	img.id = myFramePicture;
 	
-	myFramePicture.src = canvas.toDataURL("image/png");
+	//myFramePicture.src = canvas.toDataURL("image/png");
 	//filmroll.appendChild(img);
 			
 	//alert("ich komme bis hier");
