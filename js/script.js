@@ -264,13 +264,13 @@ var lastAction = new Date();
 
 function shakeIt() {
 	window.ondevicemotion = function(coords) {
-		var sensibility = 3;
-		var minTime = 1000;
+		var sensibility = 5;
+		var minTime = 500;
 		var accX = coords.acceleration.x;
 		var time = new Date();
 		if ((time - lastAction) < minTime) return;
 		if (accX >= sensibility || accX <= -sensibility) {
-			alert("button switch");
+			//alert("button switch");
 			accX > 0 ? buttonForwardPressed() : buttonBackwardPressed();
 			
 			lastAction = time;
