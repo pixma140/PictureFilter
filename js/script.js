@@ -258,7 +258,7 @@ function showStream() {
 
 
 // device motion handling for filter change
-window.addEventListener("deviceorientation", turnIt, true);
+window.addEventListener("deviceorientation", shakeIt, true);
 
 var lastAction = new Date();
 
