@@ -55,7 +55,6 @@ function buttonBackPressed() {
 		
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	showStream();
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
@@ -140,26 +139,7 @@ function buttonNewPicturePressed() {
 	var c = canvas.getContext("2d");
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
-	document.getElementById('myVideo').style.display = "none";
-	
-	/*
-	var img = document.createElement("img");
-	img.src = canvas.toDataURL("image/png");
-	
-	img.width = canvas.width;
-	img.height = canvas.height;	
-	
-	// img.width = canvas.width / 2;
-	// img.height = canvas.height / 2;
-	
-	// filmroll.removeChild('myFramePicture');
-	img.id = myFramePicture;
-	
-	//myFramePicture.src = canvas.toDataURL("image/png");
-	//filmroll.appendChild(img);
-			
-	//alert("ich komme bis hier");
-	//document.getElementById('myFramePicture').src = "img\pokemon.jpg";	*/
+	//document.getElementById('myVideo').style.display = "none";
 }
 
 // function to handdle save pressed
@@ -170,7 +150,6 @@ function buttonSavePressed() {
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
-	showStream();
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
    
