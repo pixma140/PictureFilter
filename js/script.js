@@ -126,7 +126,7 @@ function buttonNewPicturePressed() {
 	var myVideo = document.querySelector('video');
 	var canvas = document.querySelector('canvas');
 	var filmroll = document.getElementById("filmroll");
-	var myPic = document.getElementById('myFramePicture');
+	var myFramePicture = document.getElementById('myFramePicture');
         
 	// set canvas stuff
 	canvas.width = myVideo.clientWidth;
@@ -148,7 +148,7 @@ function buttonNewPicturePressed() {
 	// filmroll.removeChild('myFramePicture');
 	img.id = myFramePicture;
 	
-	myPic.src = canvas.toDataURL("image/png");
+	myFramePicture.src = canvas.toDataURL("image/png");
 	//filmroll.appendChild(img);
 			
 	//alert("ich komme bis hier");
