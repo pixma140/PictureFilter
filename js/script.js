@@ -33,9 +33,13 @@ function initialize() {
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 		
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
-	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
+	
+	document.getElementById('buttonBack').style.display = "none";
+	document.getElementById('buttonSave').style.display = "none";
+	//document.getElementById('myPic').style.display = "none";
 	
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	
@@ -74,8 +78,8 @@ function switchFilter() {
 
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
-	document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
-	document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
+	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	
 	/*
 	if (!inTakePicture) {

@@ -37,6 +37,10 @@
 			<canvas id="myCanvas" style="display:none;"></canvas>
 		</p>
 	
+		<p>
+			<label id="filterDebugLabel"></label>
+		</p>
+	
 		<!--
 		<div id="filmroll">
 			<img id="myFramePicture" src="" width="25%" height="25%"></img>
@@ -52,9 +56,7 @@
 		<script>
 			showStream();	
 			shakeIt();
-		</script>			
-		
-		<p><label id="filterDebugLabel"></label></p>
+		</script>							
 	
 	</section>	
 
@@ -65,14 +67,7 @@
 		</p>
 		
 		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>		
-		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>
-		
-		<script>
-			document.getElementById('buttonBack').style.display = "none";
-			document.getElementById('buttonSave').style.display = "none";
-			document.getElementById('myPic').style.display = "none";
-			//document.getElementById('myPic').style.display = "none";			
-		</script>
+		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>		
 		
 	</footer>
 
