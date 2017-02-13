@@ -1,5 +1,7 @@
-media sources
+filter
+http://codepen.io/anon/pen/wgvoRy
 https://www.html5rocks.com/en/tutorials/canvas/imagefilters/
+http://camanjs.com/guides/#BasicUsage
 
 snapshot
 https://gist.github.com/segphault/2873054
