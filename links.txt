@@ -1,27 +1,6 @@
 media sources
-https://webrtc.github.io/samples/src/content/devices/input-output/
-https://davidwalsh.name/html5-camera-video-iphone
-https://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-gettingstarted
 https://www.html5rocks.com/en/tutorials/canvas/imagefilters/
-https://www.html5rocks.com/en/tutorials/getusermedia/intro/
-http://stackoverflow.com/questions/18625007/enable-rear-camera-with-html5/35480435#35480435
-
 
 snapshot
 https://gist.github.com/segphault/2873054
 http://stackoverflow.com/questions/1232793/javascript-set-img-src
-
-orientation
-http://www.medienservice-ladewig.de/Smartphone-Beschleunigungssensor-Javascript.2099932112.html
-http://www.medienservice-ladewig.de/Demo-onDeviceMotion-Event.2099932113.html
-
-
-other
-https://css-tricks.com/snippets/html/video-for-everybody-html5-video-with-flash-fallback/
-https://dev.opera.com/articles/html5-video-flash-fallback-custom-controls/
-
-https://www.quora.com/How-does-Instagram-develop-their-filters
-
-https://github.com/pixma140/Webapp
-https://pixma140.github.io/Webapp/
-file:///E:/Studium/Uni%20-%20KIT/5.%20Semester/Mobile%20Computing%20und%20Internet%20der%20Dinge/Webapp/index.html
