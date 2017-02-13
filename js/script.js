@@ -5,12 +5,10 @@ var currentFilterPos;
 
 //TODO: add more filters
 //array containing the filters
-var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)","contrast(50%)","brightness(50%)","grayscale(50%)","opacity(50%)","sepia(50%)","blur(3px)","blur(5px)","saturate(8)","saturate(250%)","brightness(200%)","contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)"); //"drop-shadow(5px 5px 5px rgba(0,0,0,0.5))");
-
-// current source
-var currentSource = 0;
-var sourceCounter = 0;
-var numberOfSources = 0;
+var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)",
+						"contrast(50%)","brightness(50%)","grayscale(50%)","opacity(50%)","sepia(50%)",
+						"blur(3px)","blur(5px)","saturate(8)","saturate(250%)","brightness(200%)",
+						"contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)");
 
 var inTakePicture = false;
 
@@ -32,20 +30,20 @@ function initialize() {
 	
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
-		
+	
+	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
+	//document.getElementById("myCanvas").setAttribute("style", "filter:" + currentFilter);
 	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
-	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
-	//document.getElementById('myPic').style.display = "none";
 	
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
-	
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
-	// TODO always update last filter
+	start(0);
+	shakeIt();
 }
 
 // function that handles back button
@@ -64,10 +62,9 @@ function buttonBackPressed() {
 // function that switches filters
 function switchFilter() {		
 	//update last used filter to cookie
-	//document.cookie="lastFilter=" + currentFilterPos;
 	createCookie('lastFilter',currentFilterPos, 20);	
 	
-	//TODO: make vibration work everywhere
+	// make vibration work everywhere
 	window.navigator.vibrate = window.navigator.vibrate || window.navigator.webkitVibrate || window.navigator.mozVibrate || window.navigator.msVibrate;
 	
 	if ("vibrate" in window.navigator) {		
@@ -97,22 +94,15 @@ function switchFilter() {
 
 // function to handle camera switch
 function buttonSwitchKameraPressed() {			
-	alert("buttonSwitchKameraPressed");	
-	
-	/*
-	alert(currentSource + "/" + numberOfSources);
+	//alert("buttonSwitchKameraPressed");		
 	
 	currentSource++;
 	
-	if (currentSource > numberOfSources) {
+	if (currentSource == videoSources.length) {
 		currentSource = 0;		
 	}
 	
-	alert(currentSource + "/" + numberOfSources);
-	
-	location.reload(true);
-	//showStream();	
-	doStuff(); */
+	start(currentSource);
 }
 
 // function to take snapshot from video
@@ -160,102 +150,66 @@ function setFavoriteFilter() {
 	// set current filter to favorite filter cookie
 }
 
-function loadSources() {	
-	//alert(sources.length);
-}
+// variables for video
+var videoSources = new Array();
+var videoSoureCounter = 0;
+var currentSource = 0;
 
-//loads last camera to video
-function showStream() {
-
-	//getting the video element
-	var video = document.querySelector('video');
-	sourceCounter = 0;
-	numberOfSources = 0;
+// enumerating devices and writing into device list
+function gotDevices(deviceInfos) {
+	videoSoureCounter = 0;
 	
-	//callback function
-	var errorCallback = function(e) {
-		alert("No camera found!");
-	};
-	
-	//stream function
-	var functionStream = function(stream) {
-		video.src = window.URL.createObjectURL(stream);
-	}
-  
-	//cross browser taking user media
-	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-	
-	//zurückkommentieren wenn fail
-	//var videoSource = null;
-	
-	/*	
-	
-	if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
-		console.log("enumerateDevices() not supported.");	
-	}
-	
-	//list cameras and microphones.
-	navigator.mediaDevices.enumerateDevices().then(function(devices) {
-		devices.forEach(function(device) {
-			
-			if (device.kind === 'videoinput') {				
-				videoSource = device.deviceId;
-				sources.push(device.deviceId);
-				alert(device.kind + ": " + device.label + " id = " + device.deviceId);				
-			}			
-		});
-	}).catch(function(err) {
-		alert(err.name + ": " + err.message);		
-	});
-	
-	sourceSelected(sources[1]); */
-	
-	MediaStreamTrack.getSources(function(sourceInfos) {
-		//var audioSource = null;
-		var videoSource = null;
-
-		for (var i = 0; i != sourceInfos.length; ++i) {
-			
-			var sourceInfo = sourceInfos[i];
-			
-			if (sourceInfo.kind === 'audio') {
-				//handle audio source				
-			} else if (sourceInfo.kind === 'video') {
-				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
-				
-				sourceCounter++;
-				numberOfSources++;
-				
-				alert(currentSource + "/" + numberOfSources);	
-				
-				//if (currentSource == sourceCounter) {
-					//alert("i am here");
-					videoSource = sourceInfo.id;
-					//break;
-				//}
-				
-				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
-			} else {
-				// Handle other source
-			}		
-			
+	for (var i = 0; i !== deviceInfos.length; ++i) {
+		var deviceInfo = deviceInfos[i];
+		
+		if (deviceInfo.kind === 'videoinput') {  
+			videoSources.push(deviceInfo.deviceId);
+			videoSoureCounter++;
+		
+		alert("found camera:" + deviceInfo.deviceId);
 		}
-		sourceSelected(videoSource);
-	}); 
-
-	function sourceSelected(videoSource) {
-		var constraints = {
-			audio: false,
-			video: {optional: [{sourceId: videoSource}]}
-		};
-		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	} 	
+	}		
 }
 
+// error handing
+function handleError(error) {
+  alert("An error occured while reading devices");
+}
+
+// initial enumerate devices
+navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
+
+// function i have a stream
+function gotStream(stream) {
+  window.stream = stream; // make stream available to console
+  document.querySelector('video').srcObject = stream;
+  // Refresh button list in case labels have become available
+  return navigator.mediaDevices.enumerateDevices();
+}
+
+//function to start the stream
+function start(nbr) {
+  if (window.stream) {
+    window.stream.getTracks().forEach(function(track) {
+      track.stop();
+    });
+  }
+  
+  alert("try to set camera:" + nbr);
+  
+  //select video source
+  var videoSource = videoSources[nbr];  
+  
+  var constraints = {
+    audio: false,
+    video: {deviceId: videoSource ? {exact: videoSource} : undefined}
+  };
+  
+  navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
+}
 
 // device motion handling for filter change
 var lastAction = new Date();
-
 function shakeIt() {
 	window.ondevicemotion = function(coords) {
 		var sensibility = 5;
@@ -331,7 +285,6 @@ function buttonBackwardPressed() {
 	switchFilter();
 }
 
-
 // function that handles forward button
 function buttonForwardPressed() {
 	//alert("buttonBackwardPressed");
@@ -346,70 +299,4 @@ function buttonForwardPressed() {
 	}	
 	
 	switchFilter();
-}
-
-// do stuff
-function doStuff() {
-	
-	//getting the video element
-	var video = document.querySelector('video');
-	sourceCounter = 0;
-	numberOfSources = 0;
-	
-	//callback function
-	var errorCallback = function(e) {
-		alert("No camera found!");
-	};
-	
-	//stream function
-	var functionStream = function(stream) {
-		video.src = window.URL.createObjectURL(stream);
-	}
-  
-	//cross browser taking user media
-	navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-		
-	MediaStreamTrack.getSources(function(sourceInfos) {
-		//var audioSource = null;
-		var videoSourcee = null;
-
-		for (var i = 0; i != sourceInfos.length; ++i) {
-			
-			var sourceInfo = sourceInfos[i];
-			
-			if (sourceInfo.kind === 'audio') {
-				//handle audio source				
-			} else if (sourceInfo.kind === 'video') {
-				alert("Video source " + sourceInfo.id + "" +  sourceInfo.label || 'camera' + " found");
-				
-				sourceCounter++;
-				numberOfSources++;
-								
-				
-				videoSourcee = sourceInfo.id;
-				//break;
-				
-				if (sourceCounter == 1) {
-					//alert("i am hereee");
-					alert(videoSourcee + "/");
-					sourcesSelected(videoSourcee);
-				}
-				
-				
-				//console.log(sourceInfo.id, sourceInfo.label || 'camera');
-			} else {
-				// Handle other source
-			}		
-			
-		}
-		//sourcesSelected(videoSourcee);
-	}); 
-
-	function sourcesSelected(videoSourcee) {
-		var constraints = {
-			audio: false,
-			video: {optional: [{sourceId: videoSourcee}]}
-		};
-		navigator.getUserMedia(constraints, functionStream, errorCallback);
-	} 
 }
