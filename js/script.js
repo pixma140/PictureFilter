@@ -166,8 +166,6 @@ function gotDevices(deviceInfos) {
 		if (deviceInfo.kind === 'videoinput') {  
 			videoSources.push(deviceInfo.deviceId);
 			videoSoureCounter++;
-		
-		alert("found camera:" + deviceInfo.deviceId);
 		}
 	}
 }
@@ -196,7 +194,7 @@ function start(nbr) {
     });
   }
   
-  alert("try to set camera:" + nbr);
+  //alert("try to set camera:" + nbr);
   
   //select video source
   var videoSource = videoSources[nbr];  
