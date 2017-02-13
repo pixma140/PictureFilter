@@ -99,7 +99,7 @@ function buttonSwitchKameraPressed() {
 	currentSource++;
 	
 	if (currentSource == videoSources.length) {
-		currentSource = 0;		
+		currentSource = 0;	
 	}
 	
 	start(currentSource);
@@ -157,6 +157,7 @@ var currentSource = 0;
 
 // enumerating devices and writing into device list
 function gotDevices(deviceInfos) {
+	videoSources = [];
 	videoSoureCounter = 0;
 	
 	for (var i = 0; i !== deviceInfos.length; ++i) {
@@ -168,7 +169,7 @@ function gotDevices(deviceInfos) {
 		
 		alert("found camera:" + deviceInfo.deviceId);
 		}
-	}		
+	}
 }
 
 // error handing
