@@ -51,6 +51,9 @@ function initialize() {
 	// get video and add shake listener
 	start(0);
 	shakeIt();
+	
+	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter;
+	mySnackbarFunction();
 }
 
 // function that handles back button
@@ -80,6 +83,7 @@ function switchFilter() {
 		alert("Vibration not supported");
 	}
 
+	// apply filters
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
 	
@@ -95,6 +99,9 @@ function switchFilter() {
 	//TODO: Make toast for which filter is set instead of alert
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
+	
+	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
+	mySnackbarFunction();
 }
 
 // function to handle camera switch
@@ -108,6 +115,9 @@ function buttonSwitchKameraPressed() {
 	}
 	
 	start(currentSource);
+	
+	document.getElementById('snackbar').innerHTML = "switched camera";
+	mySnackbarFunction();
 }
 
 // function to take snapshot from video
@@ -161,6 +171,9 @@ function buttonSavePressed() {
 	
 	myDownloadLink.download = filename;
     this.href = dt; //this may not work in the future..
+	
+	document.getElementById('snackbar').innerHTML = "saved image";
+	mySnackbarFunction();
 }
 
 // variables for video
@@ -185,7 +198,8 @@ function gotDevices(deviceInfos) {
 
 // error handing
 function handleError(error) {
-  alert("An error occured while reading devices");
+	document.getElementById('snackbar').innerHTML = "an error occured while reading devices";
+	mySnackbarFunction();
 }
 
 // initial enumerate devices
@@ -314,4 +328,16 @@ function buttonForwardPressed() {
 	}	
 	
 	switchFilter();
+}
+
+// snackbar function
+function mySnackbarFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
 }
