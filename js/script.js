@@ -131,6 +131,10 @@ function buttonNewPicturePressed() {
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	
+	// code for hide element
+	//document.getElementById('buttonSave').setAttribute("type", "hidden");
+	//document.getElementsById("buttonBack").removeAttribute("hidden");	
+	
 	// get stuff
 	var myVideo = document.querySelector('video');
 	var canvas = document.querySelector('canvas');	
