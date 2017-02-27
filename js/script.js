@@ -12,6 +12,7 @@ var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rot
 
 var inTakePicture = false;
 
+// initialize method
 function initialize() {	
 	
 	// check if cookie favorite filter is set
@@ -28,22 +29,26 @@ function initialize() {
 		lastFilter = getCookie("lastFilter");			
 	}
 	
+	// set current filter
 	currentFilterPos = lastFilter;
 	currentFilter = filters[lastFilter];
 	
+	// apply style from last filter to video
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	//document.getElementById("myCanvas").setAttribute("style", "filter:" + currentFilter);
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
-	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);
 	
+	// make unused buttons invisible
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
-	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
+	// debug texts
+	// alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
+	// add event listener to button save send
 	document.getElementById('myDownloadLink').addEventListener('click', buttonSavePressed, false);
 	
+	// get video and add shake listener
 	start(0);
 	shakeIt();
 }
@@ -77,8 +82,6 @@ function switchFilter() {
 
 	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
 	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
-	//document.getElementById("myFramePicture").setAttribute("style", "filter:" + currentFilter);	
-	//document.getElementById("myPic").setAttribute("style", "filter:" + currentFilter);
 	
 	/*
 	if (!inTakePicture) {
@@ -120,8 +123,7 @@ function buttonNewPicturePressed() {
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
-	var canvas = document.querySelector('canvas');
-	var filmroll = document.getElementById("filmroll");
+	var canvas = document.querySelector('canvas');	
         
 	// set canvas stuff
 	canvas.width = myVideo.clientWidth;
@@ -129,9 +131,7 @@ function buttonNewPicturePressed() {
 	
 	// get context
 	var c = canvas.getContext("2d");
-	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
-	
-	//document.getElementById('myVideo').style.display = "none";
+	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);	
 }
 
 // function to handdle save pressed
@@ -145,22 +145,22 @@ function buttonSavePressed() {
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
 	
+	// variable declaration
 	var canvas = document.getElementById("myCanvas");
 	var myDownloadLink = document.getElementById("myDownloadLink");
 	var filename = getDate() + "-" + currentFilter;
-	
-	// save images //add name (date, filter name
+		
+	// takes screenshot from canvas and writes into canvas
 	html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
-		//console.log('Drew on the existing canvas' + filename);
+		//console.log('Drew on the existing canvas the following filter' + currentFilter);
 	});
 	
-	var dt = canvas.toDataURL();
+	// download process	
+	var dt = canvas.toDataURL("image/jpeg");
+	//var dt = canvas.toDataURL("image/png"); alt
+	
 	myDownloadLink.download = filename;
     this.href = dt; //this may not work in the future..
-}
-
-function setFavoriteFilter() {
-	// set current filter to favorite filter cookie
 }
 
 // variables for video
