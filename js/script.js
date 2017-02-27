@@ -142,8 +142,13 @@ function buttonSavePressed() {
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
-   
-   // save images with date
+	
+	var canvas = document.getElementById("myCanvas");
+	
+	// save images //add name (date, filter name
+	html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            
+			console.log('Drew on the existing canvas' + getDate() + "-" + currentFilter);
+        });
 }
 
 function setFavoriteFilter() {
@@ -232,11 +237,14 @@ function getDate() {
 	var day = date.getDate();
 	var month = date.getMonth() + 1;
 	var year = date.getFullYear();
+	var hour = date.getHours();
+	var min = date.getMinutes();
+	var sec = date.getSeconds();
 
 	if (month < 10) month = "0" + month;
 	if (day < 10) day = "0" + day;
 
-	var today = day + "." + month + "." + year;
+	var today = year + "-" + month + "-" + day + "T" + hour + ":" + min + ":" + sec;
 	
 	return today;
 }
