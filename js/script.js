@@ -42,6 +42,8 @@ function initialize() {
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
+	document.getElementById('myDownloadLink').addEventListener('click', buttonSavePressed, false);
+	
 	start(0);
 	shakeIt();
 }
@@ -144,11 +146,17 @@ function buttonSavePressed() {
 	document.getElementById('buttonSave').style.display = "none";
 	
 	var canvas = document.getElementById("myCanvas");
+	var myDownloadLink = document.getElementById("myDownloadLink");
+	var filename = getDate() + "-" + currentFilter;
 	
 	// save images //add name (date, filter name
-	html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            
-			console.log('Drew on the existing canvas' + getDate() + "-" + currentFilter);
-        });
+	html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
+		//console.log('Drew on the existing canvas' + filename);
+	});
+	
+	var dt = canvas.toDataURL();
+	myDownloadLink.download = filename;
+    this.href = dt; //this may not work in the future..
 }
 
 function setFavoriteFilter() {

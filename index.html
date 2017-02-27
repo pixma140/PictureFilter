@@ -36,7 +36,7 @@
 		</p>
 		
 		<p>			
-			<canvas id="myCanvas" style="display:none;"></canvas>
+			<canvas id="myCanvas" style="display:none;"></canvas>			
 		</p>
 	
 		<p>
@@ -62,8 +62,11 @@
 			<input type="button" value="Forward" id="buttonForward" onclick="buttonForwardPressed()"/>
 		</p>
 		
-		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>		
-		<p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>		
+		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
+		<p><a id="myDownloadLink" download="myImage.png">
+			<input type="button" value="Save Image" id="buttonSave"/> <!-- onclick="buttonSavePressed()"-->
+		</a></p>		
+		<!-- <p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>	-->
 		
 	</footer>
 
