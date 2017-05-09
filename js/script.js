@@ -95,8 +95,13 @@ function switchFilter() {
 		alert("Vibration not supported");
 	}
 	
-	// set filter
-	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);
+	// current set filter with webkit from browser
+	//document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);
+	
+	// var uneditedCanvas is created and existing(canvas to apply filters too)
+	//TODO: apply filter here
+	container();
+	
 	
 	//TODO: remove filter debug label
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -105,6 +110,44 @@ function switchFilter() {
 	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
 	mySnackbarFunction();
 }
+
+// WORKZONE ============================================================================================
+// WORKZONE ============================================================================================
+// WORKZONE ============================================================================================
+
+
+function container() {
+	var c = document.getElementById('myCanvas');
+	var ctx = c.getContext('2d');
+	//ctx.drawImage(c, 0, 0);
+	var data = ctx.getImageData(0,0,c.width,c.height);
+	
+	data.data = grayscale(data.data);
+	
+	ctx.putImageData(data, 0, 0);
+}
+	
+function grayscale(d) {
+	
+	
+	for (var i=0; i<d.length; i+=4) {
+		var r = d[i];
+		var g = d[i+1];
+		var b = d[i+2];
+		// CIE luminance for the RGB
+		// The human eye is bad at seeing red and blue, so we de-emphasize them.
+		var v = 0.2126*r + 0.7152*g + 0.0722*b;
+		d[i] = d[i+1] = d[i+2] = v
+	}
+	return d;
+}
+
+
+
+
+// WORKZONE ============================================================================================
+// WORKZONE ============================================================================================
+// WORKZONE ============================================================================================
 
 // function to handle camera switch
 function buttonSwitchKameraPressed() {			
@@ -123,6 +166,7 @@ function buttonSwitchKameraPressed() {
 }
 
 // function to take snapshot from video
+var uneditedCanvas;
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
 	
@@ -137,11 +181,7 @@ function buttonNewPicturePressed() {
 	// create canvas
 	var toAddCanvas = document.createElement('canvas');
 	toAddCanvas.id = "myCanvas";
-	document.getElementById("myCanvasDiv").appendChild(toAddCanvas); 		
-	
-	// code for hide element
-	//document.getElementById('buttonSave').setAttribute("type", "hidden");
-	//document.getElementsById("buttonBack").removeAttribute("hidden");	
+	document.getElementById("myCanvasDiv").appendChild(toAddCanvas); 			
 	
 	// get stuff
 	var myVideo = document.querySelector('video');
@@ -154,6 +194,9 @@ function buttonNewPicturePressed() {
 	// get context
 	var c = canvas.getContext("2d");	
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
+	
+	// set unedited canvas for filtering
+	uneditedCanvas = document.getElementById('myCanvas');
 	
 	// remove video
 	var videoDiv = document.getElementById('myVideoDiv');
@@ -176,9 +219,9 @@ function buttonSavePressed() {
 	var filename = getDate() + "-" + currentFilter;
 		
 	// takes screenshot from canvas and writes into canvas
-	//html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
+	/* html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
 		//console.log('Drew on the existing canvas the following filter' + currentFilter);
-	//});
+	}); */
 	
 	// download process	
 	var dt = canvas.toDataURL("image/jpeg");
@@ -369,4 +412,3 @@ function mySnackbarFunction() {
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
 }
-
