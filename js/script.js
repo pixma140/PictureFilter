@@ -7,7 +7,7 @@ var currentFilterPos;
 //array containing the filters
 var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)",
 						"contrast(50%)","brightness(50%)","grayscale(50%)","opacity(50%)","sepia(50%)",
-						"blur(3px)","blur(5px)","saturate(8)","saturate(250%)","brightness(200%)",
+						"blur(3px)","blur(5px)","saturation(50%)","saturation(200%)","brightness(200%)",
 						"contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)");
 
 var inTakePicture = false;
@@ -135,6 +135,10 @@ function applyFilter() {
 		data.data = contrast(data.data, 0.5);
 	} else if (currentFilter == "contrast(200%)") {
 		data.data = contrast(data.data, 2);
+	} else if (currentFilter == "saturation(50%)") {
+		data.data = saturation(data.data, 0.5);
+	} else if (currentFilter == "saturation(200%)") {
+		data.data = saturation(data.data, 2);
 	} 
 		
 	ctx.putImageData(data, 0, 0);
@@ -180,6 +184,26 @@ function invert(d) {
 		d[i] = 255 - d[i];
 		d[i+1] = 255- d[i+1];
 		d[i+2] = 255 - d[i+2];					
+	}  
+	return d;
+}
+
+// saturation function
+function saturation(d, myPercentage) {
+	for (var i = 0; i < d.length; i += 4) {	
+		var r = d[i];
+		var g = d[i+1];
+		var b = d[i+2];
+		
+		var hsv = rgbToHsv(r, g, b);
+		
+		hsv[1] = hsv[1] * myPercentage;
+		
+		var rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
+		
+		d[i] = rgb[0];
+		d[i+1] = rgb[1];
+		d[i+2] = rgb[2];
 	}  
 	return d;
 }
@@ -462,4 +486,101 @@ function mySnackbarFunction() {
 
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
+}
+
+// function that calculates hsv to rgb values
+function hsvToRgb(h, s, v) {
+	var i;
+	var r,g,b;
+	
+	if(s === 0) {
+		// achromatic (grey)
+		r = g = b = v;
+		return [r,g,b];
+	}
+	
+	h /= 60;            // sector 0 to 5
+	i = Math.floor(h);
+	
+	f = h - i;          // factorial part of h
+	
+	p = v * ( 1 - s );
+	q = v * ( 1 - s * f );
+	t = v * ( 1 - s * ( 1 - f ) );
+	switch(i) {
+		case 0:
+			r = v;
+			g = t;
+			b = p;
+			break;
+		case 1:
+			r = q;
+			g = v;
+			b = p;
+			break;
+		case 2:
+			r = p;
+			g = v;
+			b = t;
+			break;
+		case 3:
+			r = p;
+			g = q;
+			b = v;
+			break;
+		case 4:
+			r = t;
+			g = p;
+			b = v;
+			break;
+		default:        // case 5:
+			r = v;
+			g = p;
+			b = q;
+			break;
+	}
+	return [r,g,b];
+}
+
+// function that calculates rgb to hsv values
+function rgbToHsv(r, g, b) {
+	
+	var h,s,v;
+	
+	var min = Math.min(r, g, b);
+	var max = Math.max(r, g, b);
+
+	v = max;
+	
+	var delta = max - min;
+	
+	if(max != 0) {
+		s = delta / max;        // s
+	} else {
+		// r = g = b = 0        // s = 0, v is undefined
+		s = 0;
+		h = -1;
+		return [h, s, undefined];
+	}
+	
+	if(r === max) {
+		h = (g - b) / delta;      // between yellow & magenta
+	} else if(g === max) {
+		h = 2 + (b - r  / delta;  // between cyan & yellow
+	} else {
+		h = 4 + (r - g) / delta;  // between magenta & cyan
+	}
+	
+	h *= 60;
+	
+	// degrees
+	if(h < 0) {
+		h += 360;
+	}
+	
+	if (isNaN(h)) {
+		h = 0;
+	}
+	
+	return [h,s,v];
 }
