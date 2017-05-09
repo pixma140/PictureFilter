@@ -131,7 +131,11 @@ function applyFilter() {
 		data.data = brightness(data.data, 2);
 	} else if (currentFilter == "invert(100%)") {
 		data.data = invert(data.data);
-	}
+	} else if (currentFilter == "contrast(50%)") {
+		data.data = contrast(data.data, 0.5);
+	} else if (currentFilter == "contrast(200%)") {
+		data.data = contrast(data.data, 2);
+	} 
 		
 	ctx.putImageData(data, 0, 0);
 }
@@ -156,6 +160,16 @@ function brightness(d, myPercentage) {
 		d[i] = d[i] * myPercentage;
 		d[i+1] = d[i+1] * myPercentage;
 		d[i+2] = d[i+2] * myPercentage;
+	}
+	return d;
+}
+
+// contrast filter
+function contrast(d, myPercentage) {		
+	for (var i = 0; i < d.length; i += 4) {
+		d[i] = ((((d[i] / 255) - 0.5) * myPercentage) + 0.5) * 255;
+		d[i+1] = ((((d[i+1] / 255) - 0.5) * myPercentage) + 0.5) * 255;
+		d[i+2] = ((((d[i+2] / 255) - 0.5) * myPercentage) + 0.5) * 255;		
 	}
 	return d;
 }
