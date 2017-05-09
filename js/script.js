@@ -10,7 +10,7 @@ var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rot
 						"blur(3px)","blur(5px)","saturate(8)","saturate(250%)","brightness(200%)",
 						"contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)");
 
-//var inTakePicture = false;
+var inTakePicture = false;
 
 // initialize method
 function initialize() {	
@@ -59,7 +59,9 @@ function initialize() {
 }
 
 // function that handles back button
-function buttonBackPressed() {			
+function buttonBackPressed() {
+	inTakePicture = false;
+	
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
@@ -123,14 +125,16 @@ function container() {
 	//ctx.drawImage(c, 0, 0);
 	var data = ctx.getImageData(0,0,c.width,c.height);
 	
-	data.data = grayscale(data.data);
+	// choose right filter
+	if (currentFilter == "grayscale(50%)") {
+		data.data = grayscale(data.data);
+	}
 	
 	ctx.putImageData(data, 0, 0);
 }
-	
-function grayscale(d) {
-	
-	
+
+// grayscale filter
+function grayscale(d) {		
 	for (var i=0; i<d.length; i+=4) {
 		var r = d[i];
 		var g = d[i+1];
@@ -142,8 +146,6 @@ function grayscale(d) {
 	}
 	return d;
 }
-
-
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
@@ -167,6 +169,7 @@ function buttonSwitchKameraPressed() {
 // function to take snapshot from video
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
+	inTakePicture = true;
 	
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
@@ -203,7 +206,7 @@ function buttonNewPicturePressed() {
 
 // function to handdle save pressed
 function buttonSavePressed() {
-	//alert("buttonSavePressed");
+	//alert("buttonSavePressed");	
 	
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
@@ -240,6 +243,9 @@ function buttonSavePressed() {
 	
 	// restartVideo
 	initialize();
+	
+	// set mode to not in take picture
+	inTakePicture = false;
 	
 	document.getElementById('snackbar').innerHTML = "saved image";
 	mySnackbarFunction();
@@ -314,7 +320,9 @@ function shakeIt() {
 		if ((time - lastAction) < minTime) return;
 		if (accX >= sensibility || accX <= -sensibility) {
 			//alert("button switch");
-			accX > 0 ? buttonForwardPressed() : buttonBackwardPressed();
+			if (inTakePicture) {
+				accX > 0 ? buttonForwardPressed() : buttonBackwardPressed();
+			}
 			
 			lastAction = time;
 		}
