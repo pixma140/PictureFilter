@@ -165,9 +165,9 @@ function buttonSavePressed() {
 	var filename = getDate() + "-" + currentFilter;
 		
 	// takes screenshot from canvas and writes into canvas
-	html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
+	//html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
 		//console.log('Drew on the existing canvas the following filter' + currentFilter);
-	});
+	//});
 	
 	// download process	
 	var dt = canvas.toDataURL("image/jpeg");
