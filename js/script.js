@@ -115,9 +115,10 @@ function switchFilter() {
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
 
-
+var uneditedCanvas = null;
 function container() {
-	var c = document.getElementById('myCanvas');
+	//var c = document.getElementById('myCanvas');
+	var c = uneditedCanvas;
 	var ctx = c.getContext('2d');
 	//ctx.drawImage(c, 0, 0);
 	var data = ctx.getImageData(0,0,c.width,c.height);
@@ -143,8 +144,6 @@ function grayscale(d) {
 }
 
 
-
-
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
@@ -166,7 +165,6 @@ function buttonSwitchKameraPressed() {
 }
 
 // function to take snapshot from video
-var uneditedCanvas;
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
 	
