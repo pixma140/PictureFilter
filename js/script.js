@@ -31,11 +31,7 @@ function initialize() {
 	
 	// set current filter
 	currentFilterPos = lastFilter;
-	currentFilter = filters[lastFilter];
-	
-	// apply style from last filter to video
-	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
-	//document.getElementById("myCanvas").setAttribute("style", "filter:" + currentFilter);
+	currentFilter = filters[lastFilter];		
 	
 	// make unused buttons invisible
 	document.getElementById('buttonBack').style.display = "none";
