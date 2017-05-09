@@ -76,7 +76,10 @@ function buttonBackPressed() {
 	canvasDiv.removeChild(document.getElementById('myCanvas'));
 	
 	// restartVideo
-	initialize();	
+	initialize();
+	
+	// reset unedited canvas
+	uneditedCanvas = null;
 }
 
 // function that switches filters
@@ -93,13 +96,8 @@ function switchFilter() {
 		alert("Vibration not supported");
 	}
 	
-	// current set filter with webkit from browser
-	//document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);
-	
-	// var uneditedCanvas is created and existing(canvas to apply filters too)
-	//TODO: apply filter here
-	container();
-	
+	// filter gets applied here
+	applyFilter();
 	
 	//TODO: remove filter debug label
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -113,8 +111,9 @@ function switchFilter() {
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
 
+// method that decides which filter to use
 var uneditedCanvas = null;
-function container() {
+function applyFilter() {
 	//var c = document.getElementById('myCanvas');
 	var c = uneditedCanvas;
 	var ctx = c.getContext('2d');
@@ -124,14 +123,19 @@ function container() {
 	// choose right filter
 	if (currentFilter == "grayscale(50%)") {
 		data.data = grayscale(data.data);
+	} else if (currentFilter == "brightness(50%)") {
+		data.data = brightness(data.data, 0.5);
+	} else if (currentFilter == "brightness(200%)") {
+		data.data = brightness(data.data, 2);
 	}
+	
 	
 	ctx.putImageData(data, 0, 0);
 }
 
 // grayscale filter
 function grayscale(d) {		
-	for (var i=0; i<d.length; i+=4) {
+	for (var i=0; i<d.length; i += 4) {
 		var r = d[i];
 		var g = d[i+1];
 		var b = d[i+2];
@@ -139,6 +143,16 @@ function grayscale(d) {
 		// The human eye is bad at seeing red and blue, so we de-emphasize them.
 		var v = 0.2126*r + 0.7152*g + 0.0722*b;
 		d[i] = d[i+1] = d[i+2] = v
+	}
+	return d;
+}
+
+// grayscale filter
+function brightness(d, myPercentage) {
+	for (var i = 0; i < d.length; i += 4) {
+		d[i] = d[i] * myPercentage;
+		d[i+1] = d[i+1] * myPercentage;
+		d[i+2] = d[i+2] * myPercentage;
 	}
 	return d;
 }
@@ -240,8 +254,9 @@ function buttonSavePressed() {
 	// restartVideo
 	initialize();
 	
-	// set mode to not in take picture
+	// set mode to not in take picture and reset unedited canvas
 	inTakePicture = false;
+	uneditedCanvas = null;
 	
 	document.getElementById('snackbar').innerHTML = "saved image";
 	mySnackbarFunction();
