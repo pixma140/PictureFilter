@@ -10,7 +10,7 @@ var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rot
 						"blur(3px)","blur(5px)","saturate(8)","saturate(250%)","brightness(200%)",
 						"contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)");
 
-var inTakePicture = false;
+//var inTakePicture = false;
 
 // initialize method
 function initialize() {	
@@ -40,6 +40,8 @@ function initialize() {
 	// make unused buttons invisible
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('buttonBackward').style.display = "none";
+	document.getElementById('buttonForward').style.display = "none";
 	
 	// debug texts
 	// alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
@@ -57,16 +59,26 @@ function initialize() {
 }
 
 // function that handles back button
-function buttonBackPressed() {
-	
-	inTakePicture = false;
-		
+function buttonBackPressed() {			
 	document.getElementById('buttonNewPicture').style.display = "block";
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('buttonBackward').style.display = "none";
+	document.getElementById('buttonForward').style.display = "none";
 	
-	//TODO button back pressed routine, put canvas away and show stream again
+	// add video
+	var toAddVideo = document.createElement('video');
+	toAddVideo.id = "myVideo";
+	toAddVideo.autoplay = "true";
+	document.getElementById("myVideoDiv").appendChild(toAddVideo);
+	
+	// remove canvas
+	var canvasDiv = document.getElementById('myCanvasDiv');
+	canvasDiv.removeChild(document.getElementById('myCanvas'));
+	
+	// restartVideo
+	initialize();	
 }
 
 // function that switches filters
@@ -82,21 +94,11 @@ function switchFilter() {
 	} else {
 		alert("Vibration not supported");
 	}
-
-	// apply filters
-	document.getElementById("myVideo").setAttribute("style", "filter:" + currentFilter);
-	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);	
 	
-	/*
-	if (!inTakePicture) {
-		document.getElementById('myCanvas').style.display = "none";
-		document.getElementById('myVideo').style.display = "center";
-	} else {
-		document.getElementById('myVideo').style.display = "none";
-		document.getElementById('myCanvas').style.display = "center";
-	} */
-		
-	//TODO: Make toast for which filter is set instead of alert
+	// set filter
+	document.querySelector('canvas').setAttribute("style", "filter:" + currentFilter);
+	
+	//TODO: remove filter debug label
 	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
@@ -123,13 +125,19 @@ function buttonSwitchKameraPressed() {
 // function to take snapshot from video
 function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
-	inTakePicture = true;
 	
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
+	document.getElementById('buttonBackward').style.display = "block";
+	document.getElementById('buttonForward').style.display = "block";	
+	
+	// create canvas
+	var toAddCanvas = document.createElement('canvas');
+	toAddCanvas.id = "myCanvas";
+	document.getElementById("myCanvasDiv").appendChild(toAddCanvas); 		
 	
 	// code for hide element
 	//document.getElementById('buttonSave').setAttribute("type", "hidden");
@@ -144,14 +152,17 @@ function buttonNewPicturePressed() {
 	canvas.height = myVideo.clientHeight;
 	
 	// get context
-	var c = canvas.getContext("2d");
-	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);	
+	var c = canvas.getContext("2d");	
+	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
+	
+	// remove video
+	var videoDiv = document.getElementById('myVideoDiv');
+	videoDiv.removeChild(document.getElementById('myVideo'));
 }
 
 // function to handdle save pressed
 function buttonSavePressed() {
 	//alert("buttonSavePressed");
-	inTakePicture = false;	
 	
 	//button handling
 	document.getElementById('buttonNewPicture').style.display = "block";
@@ -171,10 +182,23 @@ function buttonSavePressed() {
 	
 	// download process	
 	var dt = canvas.toDataURL("image/jpeg");
-	//var dt = canvas.toDataURL("image/png"); alt
+	//var dt = canvas.toDataURL("image/png"); alternative
 	
 	myDownloadLink.download = filename;
-    this.href = dt; //this may not work in the future..
+    this.href = dt; //this may not work in the future...
+	
+	// add video
+	var toAddVideo = document.createElement('video');
+	toAddVideo.id = "myVideo";
+	toAddVideo.autoplay = "true";
+	document.getElementById("myVideoDiv").appendChild(toAddVideo);
+	
+	// remove canvas
+	var canvasDiv = document.getElementById('myCanvasDiv');
+	canvasDiv.removeChild(document.getElementById('myCanvas'));
+	
+	// restartVideo
+	initialize();
 	
 	document.getElementById('snackbar').innerHTML = "saved image";
 	mySnackbarFunction();
@@ -345,3 +369,4 @@ function mySnackbarFunction() {
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
 }
+

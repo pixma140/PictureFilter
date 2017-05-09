@@ -29,16 +29,15 @@
 		<p><input type="button" value="Back" id="buttonBack" onclick="buttonBackPressed()"/></p>
 	</header>
 
-	<section>
-
-		<p>
-			<video id="myVideo" width="50%" poster="img\pokemon.jpg" autoplay></video>				
-		</p>
-		
-		<p>			
-			<canvas id="myCanvas" style="display:none;"></canvas>			
-		</p>
-	
+	<section>		
+		<div id="myVideoDiv">
+			<video id="myVideo" idth="50%" poster="img\pokemon.jpg" autoplay></video>				
+		</div>
+				
+		<div id="myCanvasDiv">
+			<!-- <canvas id="myCanvas" style="display:none;"></canvas> -->
+		</div>									
+			
 		<p>
 			<label id="filterDebugLabel"></label>
 		</p>
@@ -46,21 +45,19 @@
 	</section>	
 
 	<footer>
-		<p>
-			<input type="button" value="Backward" id="buttonBackward" onclick="buttonBackwardPressed()"/>
-			<input type="button" value="Forward" id="buttonForward" onclick="buttonForwardPressed()"/>
-		</p>
+		<p><input type="button" value="Backward" id="buttonBackward" onclick="buttonBackwardPressed()"/></p>
+		
+		<p><input type="button" value="Forward" id="buttonForward" onclick="buttonForwardPressed()"/></p>
 		
 		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
-		<p><a id="myDownloadLink" download="myImage.png">
-			<input type="button" value="Save Image" id="buttonSave"/> <!-- onclick="buttonSavePressed()"-->
-		</a></p>		
-		<!-- <p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>	-->
 		
+		<p><a id="myDownloadLink" download="myImage.png"><input type="button" value="Save Image" id="buttonSave"/> <!-- onclick="buttonSavePressed()"--></a></p>
+		
+		<!-- <p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>	-->	
+
+		<div id="snackbar">Some text message..</div>			
 	</footer>
 
-	<div id="snackbar">Some text message..</div>	
-	
 	<script>initialize()</script>	
 </body>
 </html>
