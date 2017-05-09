@@ -122,7 +122,7 @@ function applyFilter() {
 	
 	// choose right filter
 	if (currentFilter == "none") {
-		document.getElementById('myCanvas') = uneditedCanvas;
+		data = uneditedCanvas.getContext('2d').getImageData(0,0, uneditedCanvas.width, uneditedCanvas.height);
 	} else if (currentFilter == "grayscale(50%)") {
 		data.data = grayscale(data.data);
 	} else if (currentFilter == "brightness(50%)") {
@@ -139,7 +139,7 @@ function applyFilter() {
 		data.data = saturation(data.data, 0.5);
 	} else if (currentFilter == "saturation(200%)") {
 		data.data = saturation(data.data, 2);
-	} 
+	}
 		
 	ctx.putImageData(data, 0, 0);
 }
@@ -566,7 +566,7 @@ function rgbToHsv(r, g, b) {
 	if(r === max) {
 		h = (g - b) / delta;      // between yellow & magenta
 	} else if(g === max) {
-		h = 2 + (b - r  / delta;  // between cyan & yellow
+		h = 2 + (b - r)  / delta;  // between cyan & yellow
 	} else {
 		h = 4 + (r - g) / delta;  // between magenta & cyan
 	}
