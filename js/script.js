@@ -163,7 +163,7 @@ function brightness(d, myPercentage) {
 // invert filter
 function invert(d) {
 	for (var i = 0; i < d.length; i++) {
-		dst[i] = 255-d[i];		
+		d[i] = 255 - d[i];		
 	}  
 	return d;
 }
@@ -224,6 +224,8 @@ function buttonNewPicturePressed() {
 	
 	// apply current filter
 	applyFilter();
+	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
+	mySnackbarFunction();
 	
 	// remove video
 	var videoDiv = document.getElementById('myVideoDiv');
