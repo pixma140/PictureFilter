@@ -129,15 +129,16 @@ function applyFilter() {
 		data.data = brightness(data.data, 0.5);
 	} else if (currentFilter == "brightness(200%)") {
 		data.data = brightness(data.data, 2);
+	} else if (currentFilter == "invert(100%)") {
+		data.data = invert(data.data);
 	}
-	
-	
+		
 	ctx.putImageData(data, 0, 0);
 }
 
 // grayscale filter
 function grayscale(d) {		
-	for (var i=0; i<d.length; i += 4) {
+	for (var i = 0; i < d.length; i += 4) {
 		var r = d[i];
 		var g = d[i+1];
 		var b = d[i+2];
@@ -158,6 +159,16 @@ function brightness(d, myPercentage) {
 	}
 	return d;
 }
+
+// invert filter
+function invert(d) {
+	for (var i = 0; i < d.length; i++) {
+		dst[i] = 255-d[i];		
+	}  
+	return d;
+}
+
+
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
 // WORKZONE ============================================================================================
@@ -210,6 +221,9 @@ function buttonNewPicturePressed() {
 	
 	// set unedited canvas for filtering
 	uneditedCanvas = document.getElementById('myCanvas');
+	
+	// apply current filter
+	applyFilter();
 	
 	// remove video
 	var videoDiv = document.getElementById('myVideoDiv');
