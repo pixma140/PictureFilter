@@ -121,7 +121,9 @@ function applyFilter() {
 	var data = ctx.getImageData(0,0,c.width,c.height);
 	
 	// choose right filter
-	if (currentFilter == "grayscale(50%)") {
+	if (currentFilter == "none") {
+		data = uneditedCanvas.getContext('2d').getImageData(0,0, uneditedCanvas.width, uneditedCanvas.height);
+	} else if (currentFilter == "grayscale(50%)") {
 		data.data = grayscale(data.data);
 	} else if (currentFilter == "brightness(50%)") {
 		data.data = brightness(data.data, 0.5);
