@@ -122,7 +122,7 @@ function applyFilter() {
 	
 	// choose right filter
 	if (currentFilter == "none") {
-		data = uneditedCanvas.getContext('2d').getImageData(0,0, uneditedCanvas.width, uneditedCanvas.height);
+		document.getElementById('myCanvas') = uneditedCanvas;
 	} else if (currentFilter == "grayscale(50%)") {
 		data.data = grayscale(data.data);
 	} else if (currentFilter == "brightness(50%)") {
