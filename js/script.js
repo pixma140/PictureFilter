@@ -113,12 +113,14 @@ function switchFilter() {
 
 // method that decides which filter to use
 var uneditedCanvas = null;
+var myUneditedDataArray = null;
 function applyFilter() {
 	//var c = document.getElementById('myCanvas');
 	var c = uneditedCanvas;
 	var ctx = c.getContext('2d');
-	//ctx.drawImage(c, 0, 0);
+	//ctx.drawImage(c, 0, 0);	
 	var data = ctx.getImageData(0,0,c.width,c.height);
+	data.data = myUneditedDataArray;	
 	
 	// choose right filter
 	if (currentFilter == "none") {
@@ -256,12 +258,14 @@ function buttonNewPicturePressed() {
 	canvas.height = myVideo.clientHeight;
 	
 	// get context
-	var c = canvas.getContext("2d");	
-	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
+	var ctx = canvas.getContext("2d");	
+	ctx.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
 	// set unedited canvas for filtering
 	//uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
 	uneditedCanvas = document.getElementById('myCanvas');
+	var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+	myUneditedDataArray = rawImageData.data;
 	
 	// apply current filter
 	applyFilter();
