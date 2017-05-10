@@ -262,7 +262,7 @@ function hueRotate(d, myRotation) {
 }
 
 // function convolute for sobel etc
-function convolute = function(pixels, weights, opaque) {
+function convolute(pixels, weights, opaque) {
 	
 	var tmpCanvas = document.createElement('canvas');
 	var tmpCtx = tmpCanvas.getContext('2d');
