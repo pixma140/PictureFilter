@@ -13,6 +13,8 @@ body {
 	vertical-align: middle;
 	
 	background-color: #DDEEFF;
+	
+	orientation: "portrait";
 }
 
 header {

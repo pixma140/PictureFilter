@@ -260,7 +260,7 @@ function buttonNewPicturePressed() {
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
 	// set unedited canvas for filtering
-	uneditedCanvas = document.getElementById('myCanvas');
+	uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
 	
 	// apply current filter
 	applyFilter();
@@ -486,6 +486,24 @@ function mySnackbarFunction() {
 
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
+}
+
+// function to copy canvas
+function cloneCanvas(oldCanvas) {
+
+    //create a new canvas
+    var newCanvas = document.createElement('canvas');
+    var context = newCanvas.getContext('2d');
+
+    //set dimensions
+    newCanvas.width = oldCanvas.width;
+    newCanvas.height = oldCanvas.height;
+
+    //apply the old canvas to the new one
+    context.drawImage(oldCanvas, 0, 0);
+
+    //return the new canvas
+    return newCanvas;
 }
 
 // function that calculates hsv to rgb values
