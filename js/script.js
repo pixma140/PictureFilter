@@ -32,7 +32,7 @@ function initialize() {
 	if(getCookie("lastCamera") == ""){
 		// set last camera to nbr 0	
 		createCookie('lastCamera','0', 20);		
-		lastCamera = 0;	
+		lastCamera = 0;
 	} else {
 		// get last filter
 		lastCamera = getCookie("lastCamera");			
@@ -158,7 +158,7 @@ function applyFilter() {
 	} else if (currentFilter == "threshold") {
 		data.data = threshold(data.data);
 	} else if (currentFilter == "sharpen") {
-		data.data = convolute(data, [0,-1, 0,-1,5,-1,0,-1,0], false);
+		data.data = convolute(data, [0,-1,0,-1,5,-1,0,-1,0], false);
 	}
 	
 	writeCtx.putImageData(data, 0, 0);
@@ -334,6 +334,7 @@ function buttonSwitchKameraPressed() {
 	
 	//update last used camera to cookie
 	createCookie('lastCamera',currentSource, 20);
+	alert("set cookie to " + getCookie("lastCamera"));
 	
 	start(currentSource);
 	
