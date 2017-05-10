@@ -260,7 +260,8 @@ function buttonNewPicturePressed() {
 	c.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
 	// set unedited canvas for filtering
-	uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
+	//uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
+	uneditedCanvas = document.getElementById('myCanvas');
 	
 	// apply current filter
 	applyFilter();
