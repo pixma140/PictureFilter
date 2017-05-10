@@ -35,7 +35,8 @@ function initialize() {
 		lastCamera = 0;
 	} else {
 		// get last filter
-		lastCamera = getCookie("lastCamera");			
+		lastCamera = getCookie("lastCamera");
+		alert("i read cookie " + lastCamera);
 	}
 	
 	// set current filter
@@ -333,8 +334,7 @@ function buttonSwitchKameraPressed() {
 	}
 	
 	//update last used camera to cookie
-	createCookie('lastCamera',currentSource, 20);
-	alert("set cookie to " + getCookie("lastCamera"));
+	createCookie('lastCamera',currentSource, 20);	
 	
 	start(currentSource);
 	
