@@ -2,6 +2,7 @@
 var lastFilter;
 var currentFilter;
 var currentFilterPos;
+var lastCamera;
 
 //TODO: add more filters
 //array containing the filters
@@ -20,15 +21,21 @@ function initialize() {
 	// check if cookie favorite filter is set
 	if(getCookie("lastFilter") == ""){
 		// set last filter to no filter
-		
-		createCookie('lastFilter','0', 20);
-		//document.cookie="lastFilter=0";
-		
-		lastFilter = 0;		
-		
+		createCookie('lastFilter','0', 20);		
+		lastFilter = 0;				
 	} else {
 		// get last filter
 		lastFilter = getCookie("lastFilter");			
+	}
+	
+	// check if cookie last camera is set
+	if(getCookie("lastCamera") == ""){
+		// set last camera to nbr 0	
+		createCookie('lastCamera','0', 20);		
+		lastCamera = 0;	
+	} else {
+		// get last filter
+		lastCamera = getCookie("lastCamera");			
 	}
 	
 	// set current filter
@@ -49,7 +56,7 @@ function initialize() {
 	document.getElementById('myDownloadLink').addEventListener('click', buttonSavePressed, false);
 	
 	// get video and add shake listener
-	start(0);
+	start(lastCamera);
 	shakeIt();
 	
 	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter;
@@ -264,7 +271,9 @@ function hueRotate(d, myRotation) {
 // function convolute for sobel etc
 function convolute(pixels, weights, opaque) {
 	
-	var tmpCanvas = document.createElement('canvas');
+	var tmpCanvas = document.createElement('canvas');	
+	//tmpCanvas.width = document.getElementById('myCanvas').width;
+	//tmpCanvas.height = document.getElementById('myCanvas').height;	
 	var tmpCtx = tmpCanvas.getContext('2d');
 	
 	var side = Math.round(Math.sqrt(weights.length));
@@ -281,14 +290,14 @@ function convolute(pixels, weights, opaque) {
 
 	var alphaFac = opaque ? 1 : 0;
 
-	for (var y=0; y<h; y++) {
-		for (var x=0; x<w; x++) {
+	for (var y = 0; y < h; y++) {		
+		for (var x = 0; x < w; x++) {
 		  var sy = y;
 		  var sx = x;
 		  var dstOff = (y*w+x)*4;
 		  var r=0, g=0, b=0, a=0;
-		  for (var cy=0; cy<side; cy++) {
-			for (var cx=0; cx<side; cx++) {
+		  for (var cy = 0; cy < side; cy++) {
+			for (var cx = 0; cx < side; cx++) {
 			  var scy = Math.min(sh-1, Math.max(0, sy + cy - halfSide));
 			  var scx = Math.min(sw-1, Math.max(0, sx + cx - halfSide));
 			  var srcOff = (scy*sw+scx)*4;
@@ -322,6 +331,9 @@ function buttonSwitchKameraPressed() {
 	if (currentSource == videoSources.length) {
 		currentSource = 0;	
 	}
+	
+	//update last used camera to cookie
+	createCookie('lastCamera',currentSource, 20);
 	
 	start(currentSource);
 	
