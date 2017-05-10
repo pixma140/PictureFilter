@@ -263,7 +263,7 @@ function buttonNewPicturePressed() {
 	
 	// set unedited canvas for filtering
 	//uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
-	uneditedCanvas = document.createElement('canvas');
+	uneditedCanvas = document.getElementById('myCanvas');
 	var destCtx = uneditedCanvas.getContext('2d');
 	destCtx.drawImage(document.getElementById('myCanvas'), 0, 0);
 	//var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
