@@ -113,18 +113,18 @@ function switchFilter() {
 
 // method that decides which filter to use
 var uneditedCanvas = null;
-var myUneditedDataArray = null;
 function applyFilter() {
-	//var c = document.getElementById('myCanvas');
-	var c = uneditedCanvas;
-	var ctx = c.getContext('2d');
-	//ctx.drawImage(c, 0, 0);	
-	var data = ctx.getImageData(0,0,c.width,c.height);
-	data.data = myUneditedDataArray;	
+	
+	var toWriteCanvas = document.getElementById('myCanvas');
+	var writeCtx = toWriteCanvas.getContext('2d');
+	
+	var readCtx = uneditedCanvas.getContext('2d');
+	var data = readCtx.getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);	
 	
 	// choose right filter
 	if (currentFilter == "none") {
-		data = uneditedCanvas.getContext('2d').getImageData(0,0, uneditedCanvas.width, uneditedCanvas.height);
+		data = readCtx.getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);
+		//data = uneditedCanvas.getContext('2d').getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);
 	} else if (currentFilter == "grayscale(50%)") {
 		data.data = grayscale(data.data);
 	} else if (currentFilter == "brightness(50%)") {
@@ -143,7 +143,7 @@ function applyFilter() {
 		data.data = saturation(data.data, 2);
 	}
 		
-	ctx.putImageData(data, 0, 0);
+	writeCtx.putImageData(data, 0, 0);
 }
 
 // grayscale filter
@@ -263,9 +263,12 @@ function buttonNewPicturePressed() {
 	
 	// set unedited canvas for filtering
 	//uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
-	uneditedCanvas = document.getElementById('myCanvas');
-	var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-	myUneditedDataArray = rawImageData.data;
+	uneditedCanvas = document.createElement('canvas');
+	var destCtx = uneditedCanvas.getContext('2d');
+	destCtx.drawImage(document.getElementById('myCanvas'), 0, 0);
+	//var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+	//myUneditedDataArray = rawImageData.data;
+
 	
 	// apply current filter
 	applyFilter();
