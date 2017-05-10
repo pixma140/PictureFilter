@@ -151,7 +151,7 @@ function applyFilter() {
 	} else if (currentFilter == "threshold") {
 		data.data = threshold(data.data);
 	} else if (currentFilter == "sharpen") {
-		data.data = convolute(data, [0,-1, 0,-1,5,-1,0,-1,0], true);
+		data.data = convolute(data, [0,-1, 0,-1,5,-1,0,-1,0], false);
 	}
 	
 	writeCtx.putImageData(data, 0, 0);
