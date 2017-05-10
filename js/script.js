@@ -5,10 +5,12 @@ var currentFilterPos;
 
 //TODO: add more filters
 //array containing the filters
-var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)",
-						"contrast(50%)","brightness(50%)","grayscale(50%)","opacity(50%)","sepia(50%)",
-						"blur(3px)","blur(5px)","saturation(50%)","saturation(200%)","brightness(200%)",
-						"contrast(200%)","sepia(100%)","contrast(200%) brightness(150%)");
+var filters = new Array("none","90 degree hue rotation","180 degree hue rotation","270 degree hue rotation","invert",
+						"50% contrast","200% contrast","50% brightness","grayscale","opacity(50%)","threshold",
+						"blur(3px)","blur(5px)","50% saturation","200% saturation","200% brightness",
+						"sepia(100%)");
+						
+						//todo sepia, blurr, opacity
 
 var inTakePicture = false;
 
@@ -123,29 +125,28 @@ function applyFilter() {
 	
 	// choose right filter
 	if (currentFilter == "none") {
-		data = readCtx.getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);
-		//data = uneditedCanvas.getContext('2d').getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);
-	} else if (currentFilter == "grayscale(50%)") {
+		data = readCtx.getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);		
+	} else if (currentFilter == "grayscale") {
 		data.data = grayscale(data.data);
-	} else if (currentFilter == "brightness(50%)") {
+	} else if (currentFilter == "50% brightness") {
 		data.data = brightness(data.data, 0.5);
-	} else if (currentFilter == "brightness(200%)") {
+	} else if (currentFilter == "200% brightness") {
 		data.data = brightness(data.data, 2);
-	} else if (currentFilter == "invert(100%)") {
+	} else if (currentFilter == "invert") {
 		data.data = invert(data.data);
-	} else if (currentFilter == "contrast(50%)") {
+	} else if (currentFilter == "50% contrast") {
 		data.data = contrast(data.data, 0.5);
-	} else if (currentFilter == "contrast(200%)") {
+	} else if (currentFilter == "200% contrast") {
 		data.data = contrast(data.data, 2);
-	} else if (currentFilter == "saturation(50%)") {
+	} else if (currentFilter == "50% saturation") {
 		data.data = saturation(data.data, 0.5);
-	} else if (currentFilter == "saturation(200%)") {
+	} else if (currentFilter == "200% saturation") {
 		data.data = saturation(data.data, 2);
-	} else if (currentFilter == "hue-rotate(90deg)") {
+	} else if (currentFilter == "90 degree hue rotation") {
 		data.data = hueRotate(data.data, 90);
-	} else if (currentFilter == "hue-rotate(180deg)") {
+	} else if (currentFilter == "180 degree hue rotation") {
 		data.data = hueRotate(data.data, 180);
-	} else if (currentFilter == "hue-rotate(270deg)") {
+	} else if (currentFilter == "270 degree hue rotation") {
 		data.data = hueRotate(data.data, 270);
 	}
 		
@@ -193,6 +194,18 @@ function invert(d) {
 		d[i+1] = 255- d[i+1];
 		d[i+2] = 255 - d[i+2];					
 	}  
+	return d;
+}
+
+// threshold filter
+function threshold(d) {
+	for (var i = 0; i < d.length; i += 4) {
+		var r = d[i];
+		var g = d[i+1];
+		var b = d[i+2];
+		var v = (0.2126*r + 0.7152*g + 0.0722*b >= 126) ? 255 : 0;
+		d[i] = d[i+1] = d[i+2] = v;
+	}
 	return d;
 }
 
