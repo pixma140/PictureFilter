@@ -261,9 +261,11 @@ function buttonNewPicturePressed() {
 	var ctx = canvas.getContext("2d");	
 	ctx.drawImage(myVideo, 0, 0, canvas.width, canvas.height);
 	
-	// set unedited canvas for filtering
-	//uneditedCanvas = cloneCanvas(document.getElementById('myCanvas'));
-	uneditedCanvas = document.getElementById('myCanvas');
+	// set unedited canvas for filtering	
+	uneditedCanvas = document.createElement('canvas');
+	uneditedCanvas.width = canvas.width;
+	uneditedCanvas.height = canvas.height;
+	
 	var destCtx = uneditedCanvas.getContext('2d');
 	destCtx.drawImage(document.getElementById('myCanvas'), 0, 0);
 	//var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -494,24 +496,6 @@ function mySnackbarFunction() {
 
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ x.className = x.className.replace("show", ""); }, 1500);
-}
-
-// function to copy canvas
-function cloneCanvas(oldCanvas) {
-
-    //create a new canvas
-    var newCanvas = document.createElement('canvas');
-    var context = newCanvas.getContext('2d');
-
-    //set dimensions
-    newCanvas.width = oldCanvas.width;
-    newCanvas.height = oldCanvas.height;
-
-    //apply the old canvas to the new one
-    context.drawImage(oldCanvas, 0, 0);
-
-    //return the new canvas
-    return newCanvas;
 }
 
 // function that calculates hsv to rgb values
