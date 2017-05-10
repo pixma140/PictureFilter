@@ -16,7 +16,7 @@ var filters = new Array("none","90 degree hue rotation","180 degree hue rotation
 var inTakePicture = false;
 
 // initialize method
-function initialize() {	
+function initialize() {
 	
 	// check if cookie favorite filter is set
 	if(getCookie("lastFilter") == ""){
@@ -35,8 +35,7 @@ function initialize() {
 		lastCamera = 0;
 	} else {
 		// get last filter
-		lastCamera = getCookie("lastCamera");
-		alert("i read cookie " + lastCamera);
+		lastCamera = getCookie("lastCamera");		
 	}
 	
 	// set current filter
@@ -49,8 +48,7 @@ function initialize() {
 	document.getElementById('buttonBackward').style.display = "none";
 	document.getElementById('buttonForward').style.display = "none";
 	
-	// debug texts
-	// alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
+	// debug texts	
 	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
 	// add event listener to button save send
