@@ -8,7 +8,7 @@ var currentFilterPos;
 var filters = new Array("none","hue-rotate(90deg)","hue-rotate(180deg)","hue-rotate(270deg)","invert(100%)",
 						"contrast(50%)","brightness(50%)","grayscale(50%)","opacity(50%)","sepia(50%)",
 						"blur(3px)","blur(5px)","saturation(50%)","saturation(200%)","brightness(200%)",
-						"contrast(200%)","grayscale(100%)","sepia(100%)","contrast(200%) brightness(150%)");
+						"contrast(200%)","sepia(100%)","contrast(200%) brightness(150%)");
 
 var inTakePicture = false;
 
@@ -141,6 +141,12 @@ function applyFilter() {
 		data.data = saturation(data.data, 0.5);
 	} else if (currentFilter == "saturation(200%)") {
 		data.data = saturation(data.data, 2);
+	} else if (currentFilter == "hue-rotate(90deg)") {
+		data.data = hueRotate(data.data, 90);
+	} else if (currentFilter == "hue-rotate(180deg)") {
+		data.data = hueRotate(data.data, 180);
+	} else if (currentFilter == "hue-rotate(270deg)") {
+		data.data = hueRotate(data.data, 270);
 	}
 		
 	writeCtx.putImageData(data, 0, 0);
@@ -200,6 +206,34 @@ function saturation(d, myPercentage) {
 		var hsv = rgbToHsv(r, g, b);
 		
 		hsv[1] = hsv[1] * myPercentage;
+		
+		var rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
+		
+		d[i] = rgb[0];
+		d[i+1] = rgb[1];
+		d[i+2] = rgb[2];
+	}  
+	return d;
+}
+
+// hue rotate function
+function hueRotate(d, myRotation) {
+	for (var i = 0; i < d.length; i += 4) {	
+		var r = d[i];
+		var g = d[i+1];
+		var b = d[i+2];
+		
+		var hsv = rgbToHsv(r, g, b);
+		
+		// rotate hue here
+		var tempHue = hsv[0];
+		
+		tempHue = tempHue + myRotation;
+		if (tempHue > 360) {
+			tempHue = tempHue - 360;
+		}
+		
+		hsv[0] = tempHue;
 		
 		var rgb = hsvToRgb(hsv[0], hsv[1], hsv[2]);
 		
