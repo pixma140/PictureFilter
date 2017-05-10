@@ -148,6 +148,8 @@ function applyFilter() {
 		data.data = hueRotate(data.data, 180);
 	} else if (currentFilter == "270 degree hue rotation") {
 		data.data = hueRotate(data.data, 270);
+	} else if (currentFilter == "threshold") {
+		data.data = threshold(data.data);
 	}
 		
 	writeCtx.putImageData(data, 0, 0);
