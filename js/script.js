@@ -156,8 +156,9 @@ function applyFilter() {
 		data.data = hueRotate(data.data, 270);
 	} else if (currentFilter == "threshold") {
 		data.data = threshold(data.data);
-	} else if (currentFilter == "sharpen") {
-		data.data = convolute(data, [0,-1,0,-1,5,-1,0,-1,0], true);
+	} else if (currentFilter == "sharpen") {		
+		data.data = convolute(data, [1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9], true);
+		//data.data = convolute(data, [0,-1,0,-1,5,-1,0,-1,0], true);
 	}
 	
 	writeCtx.putImageData(data, 0, 0);
