@@ -6,10 +6,10 @@ var lastCamera;
 
 //TODO: add more filters
 //array containing the filters
-var filters = new Array("none","90 degree hue rotation","180 degree hue rotation","270 degree hue rotation","invert",
-						"50% contrast","200% contrast","50% brightness","grayscale","opacity(50%)","threshold",
-						"blur(3px)","blur(5px)","50% saturation","200% saturation","200% brightness",
-						"sepia(100%)","sharpen");
+var filters = new Array("none","invert","90 degree hue rotation","180 degree hue rotation","270 degree hue rotation",
+						"50% contrast","200% contrast","50% brightness","50% saturation","200% saturation",
+						"200% brightness","sepia(100%)","opacity(50%)","grayscale","threshold","sharpen");
+						//"sharpen","3px blurr","5px blurr","sobel","previtt","other"); 
 						
 						//todo sepia, blurr, opacity
 
@@ -271,8 +271,8 @@ function hueRotate(d, myRotation) {
 function convolute(pixels, weights, opaque) {
 	
 	var tmpCanvas = document.createElement('canvas');	
-	//tmpCanvas.width = document.getElementById('myCanvas').width;
-	//tmpCanvas.height = document.getElementById('myCanvas').height;	
+	tmpCanvas.width = document.getElementById('myCanvas').width;
+	tmpCanvas.height = document.getElementById('myCanvas').height;	
 	var tmpCtx = tmpCanvas.getContext('2d');
 	
 	var side = Math.round(Math.sqrt(weights.length));
@@ -284,7 +284,7 @@ function convolute(pixels, weights, opaque) {
 
 	var w = sw;
 	var h = sh;
-	var output = tmpCtx.createImageData(w,h);
+	var output = tmpCtx.createImageData(tmpCanvas.width, tmpCanvas.height);
 	var dst = output.data;
 
 	var alphaFac = opaque ? 1 : 0;
