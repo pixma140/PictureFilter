@@ -267,13 +267,22 @@ function hueRotate(d, myRotation) {
 	return d;
 }
 
+Filters = {};
+
+Filters.tmpCanvas = document.createElement('canvas');
+Filters.tmpCtx = Filters.tmpCanvas.getContext('2d');
+
+Filters.createImageData = function(w,h) {
+  return this.tmpCtx.createImageData(w,h);
+};
+
 // function convolute for sobel etc
 function convolute(pixels, weights, opaque) {
 	
-	var tmpCanvas = document.createElement('canvas');	
+	//var tmpCanvas = document.createElement('canvas');	
 	//tmpCanvas.width = document.getElementById('myCanvas').width;
 	//tmpCanvas.height = document.getElementById('myCanvas').height;	
-	var tmpCtx = tmpCanvas.getContext('2d');
+	//var tmpCtx = tmpCanvas.getContext('2d');
 	
 	var side = Math.round(Math.sqrt(weights.length));
 	var halfSide = Math.floor(side/2);
@@ -284,7 +293,8 @@ function convolute(pixels, weights, opaque) {
 
 	var w = sw;
 	var h = sh;
-	var output = tmpCtx.createImageData(w, h);
+	var output = Filters.createImageData(w, h);
+	//var output = tmpCtx.createImageData(w, h);
 	var dst = output.data;
 
 	var alphaFac = opaque ? 1 : 0;
