@@ -157,7 +157,7 @@ function applyFilter() {
 	} else if (currentFilter == "threshold") {
 		data.data = threshold(data.data);
 	} else if (currentFilter == "sharpen") {
-		data.data = convolute(data, [0,-1,0,-1,5,-1,0,-1,0], false);
+		data.data = convolute(data, [0,-1,0,-1,5,-1,0,-1,0], true);
 	}
 	
 	writeCtx.putImageData(data, 0, 0);
@@ -271,8 +271,8 @@ function hueRotate(d, myRotation) {
 function convolute(pixels, weights, opaque) {
 	
 	var tmpCanvas = document.createElement('canvas');	
-	tmpCanvas.width = document.getElementById('myCanvas').width;
-	tmpCanvas.height = document.getElementById('myCanvas').height;	
+	//tmpCanvas.width = document.getElementById('myCanvas').width;
+	//tmpCanvas.height = document.getElementById('myCanvas').height;	
 	var tmpCtx = tmpCanvas.getContext('2d');
 	
 	var side = Math.round(Math.sqrt(weights.length));
@@ -284,7 +284,7 @@ function convolute(pixels, weights, opaque) {
 
 	var w = sw;
 	var h = sh;
-	var output = tmpCtx.createImageData(tmpCanvas.width, tmpCanvas.height);
+	var output = tmpCtx.createImageData(w, h);
 	var dst = output.data;
 
 	var alphaFac = opaque ? 1 : 0;
