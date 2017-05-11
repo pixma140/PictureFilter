@@ -80,7 +80,7 @@ input[type="button"] {
 	
     min-width: 50%; /* Set a default minimum width */
     left: 25%; /* Center the snackbar */	
-	bottom: 10%; /* 10%px from the bottom */
+	bottom: 20%; /* 20%px from the bottom */
 	
     text-align: center; /* Centered text */
 	font-size: 2em; /* Centered text */
