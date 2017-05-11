@@ -5,6 +5,7 @@
 
 	<title>Picture Filter</title>
 
+	<!-- meta -->
 	<meta name="author" content="Corbinian Grimm">
 	<meta name="description" content="This is my webapp project to filter pictures in browser">
 	<meta name="keywords" content="filter, images, application, webapp, filter images">	
@@ -12,36 +13,38 @@
 	<!-- Load the script -->	
 	<script src="js/script.js"></script>
 		
+	<!-- css -->
 	<link media="only screen and (max-width: 480px)" href="css/style.css" type= "text/css">
 	<link rel="stylesheet" href="css/style.css" title="main-template">
 	
-	<!-- <script>
-			loadSources();			
-	</script> -->
-
+	
 </head>
 
-<body>	
+<body>
+	<!-- button header -->
 	<header>		
 		<p><input type="button" value="Switch Camera" id="buttonSwitchCamera" onclick="buttonSwitchKameraPressed()"/></p>
 		<p><input type="button" value="Back" id="buttonBack" onclick="buttonBackPressed()"/></p>
 	</header>
 
+	<!-- video/canvas section -->
 	<section>		
 		<div id="myVideoDiv">
-			<video id="myVideo" width="50%" poster="img\pokemon.jpg" autoplay></video>		
+			<video width="80%" id="myVideo" poster="img\pokemon.jpg" autoplay></video>		
 		</div>
 				
 		<div id="myCanvasDiv">
 			<!-- <canvas id="myCanvas" style="display:none;"></canvas> -->
 		</div>									
 			
-		<p>
+		<!-- debug label -->
+		<!-- <p>
 			<label id="filterDebugLabel"></label>
-		</p>
+		</p> -->
 		
 	</section>	
 
+	<!-- button footer -->
 	<footer>
 		<p><input type="button" value="Last Filter" id="buttonBackward" onclick="buttonBackwardPressed()"/></p>
 		
@@ -49,13 +52,12 @@
 		
 		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
 		
-		<p><a id="myDownloadLink" download="myImage.png"><input type="button" value="Save Image" id="buttonSave"/> <!-- onclick="buttonSavePressed()"--></a></p>
-		
-		<!-- <p><input type="button" value="Save Image" id="buttonSave" onclick="buttonSavePressed()"/></p>	-->	
+		<p><a id="myDownloadLink" download="myImage.png"><input type="button" value="Save Image" id="buttonSave"/> <!-- onclick="buttonSavePressed()"--></a></p>		
 
-		<div id="snackbar">Some text message..</div>			
+		<div id="snackbar">Some text message...</div>			
 	</footer>
 
+	<!-- initialize video, cookies and buttons -->
 	<script>initialize()</script>	
 </body>
 </html>

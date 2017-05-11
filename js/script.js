@@ -1,24 +1,33 @@
-// current filter vars
+// VARZONE ============================================================================================
+// VARZONE ============================================================================================
+// VARZONE ============================================================================================
+
+// filter vars
 var lastFilter;
 var currentFilter;
 var currentFilterPos;
+
+// camera vars
 var lastCamera;
 
-//TODO: add more filters
 //array containing the filters
 var filters = new Array("none","invert","90 degree hue rotation","180 degree hue rotation","270 degree hue rotation",
-						"50% contrast","200% contrast","50% brightness","50% saturation","200% saturation",
-						"200% brightness","sepia","grayscale","threshold");
-						//"sharpen","3px blurr","5px blurr","sobel","previtt","other"); 
-						
-						//todo sepia, blurr, opacity
+						"50% contrast","200% contrast","50% brightness","200% brightness","50% saturation","200% saturation",
+						"sepia","grayscale","threshold");
+						//"sharpen","3px blurr","5px blurr","sobel","previtt","other"); //other filter possibilities
 
+// control var
 var inTakePicture = false;
+
+// variables for video
+var videoSources = new Array();
+var videoSoureCounter = 0;
+var currentSource = 0;
 
 // initialize method
 function initialize() {
 	
-	// check if cookie favorite filter is set
+	// check if cookie last filter is set
 	if(getCookie("lastFilter") == ""){
 		// set last filter to no filter
 		createCookie('lastFilter','0', 20);		
@@ -49,7 +58,7 @@ function initialize() {
 	document.getElementById('buttonForward').style.display = "none";
 	
 	// debug texts	
-	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
+	//document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
 	// add event listener to button save send
 	document.getElementById('myDownloadLink').addEventListener('click', buttonSavePressed, false);
@@ -58,36 +67,9 @@ function initialize() {
 	start(lastCamera);
 	shakeIt();
 	
+	// say user which filter is set
 	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter;
 	mySnackbarFunction();
-}
-
-// function that handles back button
-function buttonBackPressed() {
-	inTakePicture = false;
-	
-	document.getElementById('buttonNewPicture').style.display = "block";
-	document.getElementById('buttonSwitchCamera').style.display = "block";
-	document.getElementById('buttonBack').style.display = "none";
-	document.getElementById('buttonSave').style.display = "none";
-	document.getElementById('buttonBackward').style.display = "none";
-	document.getElementById('buttonForward').style.display = "none";
-	
-	// add video
-	var toAddVideo = document.createElement('video');
-	toAddVideo.id = "myVideo";
-	toAddVideo.autoplay = "true";
-	document.getElementById("myVideoDiv").appendChild(toAddVideo);
-	
-	// remove canvas
-	var canvasDiv = document.getElementById('myCanvasDiv');
-	canvasDiv.removeChild(document.getElementById('myCanvas'));
-	
-	// restartVideo
-	initialize();
-	
-	// reset unedited canvas
-	uneditedCanvas = null;
 }
 
 // function that switches filters
@@ -106,26 +88,28 @@ function switchFilter() {
 	
 	// filter gets applied here
 	applyFilter();
+		
+	// debug label
+	//document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
-	//TODO: remove filter debug label
-	//alert((currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter);
-	document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
-	
+	// inform which filter is set now
 	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
 	mySnackbarFunction();
 }
 
-// WORKZONE ============================================================================================
-// WORKZONE ============================================================================================
-// WORKZONE ============================================================================================
+// FILTERZONE ============================================================================================
+// FILTERZONE ============================================================================================
+// FILTERZONE ============================================================================================
 
 // method that decides which filter to use
 var uneditedCanvas = null;
 function applyFilter() {
 	
+	// get canvas
 	var toWriteCanvas = document.getElementById('myCanvas');
 	var writeCtx = toWriteCanvas.getContext('2d');
 	
+	// set context
 	var readCtx = uneditedCanvas.getContext('2d');
 	var data = readCtx.getImageData(0, 0, uneditedCanvas.width, uneditedCanvas.height);	
 	
@@ -160,6 +144,7 @@ function applyFilter() {
 		data.data = threshold(data.data);
 	}
 	
+	// draw picture
 	writeCtx.putImageData(data, 0, 0);
 }
 
@@ -281,12 +266,9 @@ function hueRotate(d, myRotation) {
 	return d;
 }
 
-
-
-
-// WORKZONE ============================================================================================
-// WORKZONE ============================================================================================
-// WORKZONE ============================================================================================
+// BUTTONHANDYLINZONE ============================================================================================
+// BUTTONHANDYLINZONE ============================================================================================
+// BUTTONHANDYLINZONE ============================================================================================
 
 // function to handle camera switch
 function buttonSwitchKameraPressed() {			
@@ -325,11 +307,11 @@ function buttonNewPicturePressed() {
 	toAddCanvas.id = "myCanvas";
 	document.getElementById("myCanvasDiv").appendChild(toAddCanvas); 			
 	
-	// get stuff
+	// get canvas and video element
 	var myVideo = document.querySelector('video');
 	var canvas = document.querySelector('canvas');	
         
-	// set canvas stuff
+	// set canvas size
 	canvas.width = myVideo.clientWidth;
 	canvas.height = myVideo.clientHeight;
 	
@@ -344,11 +326,8 @@ function buttonNewPicturePressed() {
 	
 	var destCtx = uneditedCanvas.getContext('2d');
 	destCtx.drawImage(document.getElementById('myCanvas'), 0, 0);
-	//var rawImageData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-	//myUneditedDataArray = rawImageData.data;
-
 	
-	// apply current filter
+	// apply current filter and tell user which is set now
 	applyFilter();
 	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
 	mySnackbarFunction();
@@ -373,15 +352,11 @@ function buttonSavePressed() {
 	var myDownloadLink = document.getElementById("myDownloadLink");
 	var filename = getDate() + "-" + currentFilter;
 		
-	// takes screenshot from canvas and writes into canvas
-	/* html2canvas(document.querySelector("#myCanvas"), {canvas: canvas}).then(function(canvas) {            		
-		//console.log('Drew on the existing canvas the following filter' + currentFilter);
-	}); */
-	
 	// download process	
 	var dt = canvas.toDataURL("image/jpeg");
-	//var dt = canvas.toDataURL("image/png"); alternative
+	//var dt = canvas.toDataURL("image/png"); alternative for png download
 	
+	// set download link
 	myDownloadLink.download = filename;
     this.href = dt; //this may not work in the future...
 	
@@ -402,14 +377,72 @@ function buttonSavePressed() {
 	inTakePicture = false;
 	uneditedCanvas = null;
 	
+	// inform user what happened
 	document.getElementById('snackbar').innerHTML = "saved image";
 	mySnackbarFunction();
 }
 
-// variables for video
-var videoSources = new Array();
-var videoSoureCounter = 0;
-var currentSource = 0;
+// function that handles backward button
+function buttonBackwardPressed() {	
+	
+	currentFilterPos--;		
+	
+	if (currentFilterPos == -1) {
+		currentFilterPos = filters.length-1;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}
+	
+	switchFilter();
+}
+
+// function that handles forward button
+function buttonForwardPressed() {	
+	
+	currentFilterPos++;
+	
+	if (currentFilterPos == filters.length) {
+		currentFilterPos = 0;
+		currentFilter = filters[currentFilterPos];
+	} else {
+		currentFilter = filters[currentFilterPos];
+	}	
+	
+	switchFilter();
+}
+
+// function that handles back button
+function buttonBackPressed() {
+	inTakePicture = false;
+	
+	document.getElementById('buttonNewPicture').style.display = "block";
+	document.getElementById('buttonSwitchCamera').style.display = "block";
+	document.getElementById('buttonBack').style.display = "none";
+	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('buttonBackward').style.display = "none";
+	document.getElementById('buttonForward').style.display = "none";
+	
+	// add video
+	var toAddVideo = document.createElement('video');
+	toAddVideo.id = "myVideo";
+	toAddVideo.autoplay = "true";
+	document.getElementById("myVideoDiv").appendChild(toAddVideo);
+	
+	// remove canvas
+	var canvasDiv = document.getElementById('myCanvasDiv');
+	canvasDiv.removeChild(document.getElementById('myCanvas'));
+	
+	// restartVideo
+	initialize();
+	
+	// reset unedited canvas
+	uneditedCanvas = null;
+}
+
+// VIDEOHANDLINGZONE ============================================================================================
+// VIDEOHANDLINGZONE ============================================================================================
+// VIDEOHANDLINGZONE ============================================================================================
 
 // enumerating devices and writing into device list
 function gotDevices(deviceInfos) {
@@ -438,8 +471,7 @@ navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(handleError);
 // function i have a stream
 function gotStream(stream) {
   window.stream = stream; // make stream available to console
-  document.querySelector('video').srcObject = stream;
-  // Refresh button list in case labels have become available
+  document.querySelector('video').srcObject = stream;  
   return navigator.mediaDevices.enumerateDevices();
 }
 
@@ -463,6 +495,10 @@ function start(nbr) {
   
   navigator.mediaDevices.getUserMedia(constraints).then(gotStream).then(gotDevices).catch(handleError);
 }
+
+// TOOLZONE ============================================================================================
+// TOOLZONE ============================================================================================
+// TOOLZONE ============================================================================================
 
 // device motion handling for filter change
 var lastAction = new Date();
@@ -528,38 +564,6 @@ function getCookie(cname) {
         }
     }
     return "";
-}
-
-// function that handles backward button
-function buttonBackwardPressed() {
-	//alert("buttonBackwardPressed");
-	
-	currentFilterPos--;		
-	
-	if (currentFilterPos == -1) {
-		currentFilterPos = filters.length-1;
-		currentFilter = filters[currentFilterPos];
-	} else {
-		currentFilter = filters[currentFilterPos];
-	}
-	
-	switchFilter();
-}
-
-// function that handles forward button
-function buttonForwardPressed() {
-	//alert("buttonBackwardPressed");
-	
-	currentFilterPos++;
-	
-	if (currentFilterPos == filters.length) {
-		currentFilterPos = 0;
-		currentFilter = filters[currentFilterPos];
-	} else {
-		currentFilter = filters[currentFilterPos];
-	}	
-	
-	switchFilter();
 }
 
 // snackbar function
