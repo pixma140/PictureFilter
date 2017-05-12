@@ -47,9 +47,17 @@
 
 	<!-- button footer -->
 	<footer>
-		<p><input type="button" value="Last Filter" id="buttonBackward" onclick="buttonBackwardPressed()"/></p>
+	
+		<p><table id="myTable" style="width:100%" align="center">
+		  <tr>
+			<td><input type="button" value="Last Filter" id="buttonBackward" onclick="buttonBackwardPressed()"/></td>
+			<td><input type="button" value="Next Filter" id="buttonForward" onclick="buttonForwardPressed()"/></td>
+		  </tr>
+		</table></p>
 		
-		<p><input type="button" value="Next Filter" id="buttonForward" onclick="buttonForwardPressed()"/></p>
+		<!-- <p><input type="button" value="Last Filter" id="buttonBackward" onclick="buttonBackwardPressed()"/></p>
+		
+		<p><input type="button" value="Next Filter" id="buttonForward" onclick="buttonForwardPressed()"/></p> -->
 		
 		<p><input type="button" value="Take Picture" id="buttonNewPicture" onclick="buttonNewPicturePressed()"/></p>
 		

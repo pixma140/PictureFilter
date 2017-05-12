@@ -56,6 +56,7 @@ function initialize() {
 	document.getElementById('buttonSave').style.display = "none";
 	document.getElementById('buttonBackward').style.display = "none";
 	document.getElementById('buttonForward').style.display = "none";
+	document.getElementById('myTable').style.display = "none";
 	
 	// debug texts	
 	//document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
@@ -294,13 +295,14 @@ function buttonNewPicturePressed() {
 	//alert("buttonNewPicturePressed");
 	inTakePicture = true;
 	
-	//button handling
+	//button handling	
 	document.getElementById('buttonNewPicture').style.display = "none";
 	document.getElementById('buttonSwitchCamera').style.display = "none";
+	document.getElementById('myTable').style.display = "table";
 	document.getElementById('buttonBack').style.display = "block";
 	document.getElementById('buttonSave').style.display = "block";
 	document.getElementById('buttonBackward').style.display = "block";
-	document.getElementById('buttonForward').style.display = "block";	
+	document.getElementById('buttonForward').style.display = "block";
 	
 	// create canvas
 	var toAddCanvas = document.createElement('canvas');
@@ -346,6 +348,7 @@ function buttonSavePressed() {
 	document.getElementById('buttonSwitchCamera').style.display = "block";
 	document.getElementById('buttonBack').style.display = "none";
 	document.getElementById('buttonSave').style.display = "none";
+	document.getElementById('myTable').style.display = "none";
 	
 	// variable declaration
 	var canvas = document.getElementById("myCanvas");
@@ -423,6 +426,7 @@ function buttonBackPressed() {
 	document.getElementById('buttonSave').style.display = "none";
 	document.getElementById('buttonBackward').style.display = "none";
 	document.getElementById('buttonForward').style.display = "none";
+	document.getElementById('myTable').style.display = "none";
 	
 	// add video
 	var toAddVideo = document.createElement('video');
