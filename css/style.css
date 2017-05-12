@@ -78,7 +78,7 @@ input[type="button"] {
     visibility: hidden; /* Hidden by default. Visible on click */
 	position: fixed; /* Sit on top of the screen */
 	
-    min-width: 50%; /* Set a default minimum width */
+    min-width: 60%; /* Set a default minimum width */
     left: 25%; /* Center the snackbar */	
 	bottom: 20%; /* 20%px from the bottom */
 	
