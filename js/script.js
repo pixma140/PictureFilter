@@ -11,9 +11,8 @@ var currentFilterPos;
 var lastCamera;
 
 //array containing the filters
-var filters = new Array("none","invert","90 degree hue rotation","180 degree hue rotation","270 degree hue rotation",
-						"50% contrast","200% contrast","50% brightness","200% brightness","50% saturation","200% saturation",
-						"sepia","grayscale","threshold");
+var filters = new Array("none","invert","50% contrast","200% contrast","50% brightness","200% brightness","sepia","grayscale","threshold");
+						//,"90 degree hue rotation","180 degree hue rotation","270 degree hue rotation","50% saturation","200% saturation"); //slow filters
 						//"sharpen","3px blurr","5px blurr","sobel","previtt","other"); //other filter possibilities
 
 // control var
@@ -69,7 +68,7 @@ function initialize() {
 	shakeIt();
 	
 	// say user which filter is set
-	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter;
+	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter + " - " + (currentFilterPos) + "/" + (filters.length - 1);
 	mySnackbarFunction();
 }
 
@@ -94,7 +93,7 @@ function switchFilter() {
 	//document.getElementById('filterDebugLabel').innerHTML = (currentFilterPos) + "/" + (filters.length - 1) + " " + currentFilter;
 	
 	// inform which filter is set now
-	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
+	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter + " - " + (currentFilterPos) + "/" + (filters.length - 1);	
 	mySnackbarFunction();
 }
 
@@ -331,7 +330,7 @@ function buttonNewPicturePressed() {
 	
 	// apply current filter and tell user which is set now
 	applyFilter();
-	document.getElementById('snackbar').innerHTML = "current filter: " + currentFilter;
+	document.getElementById('snackbar').innerHTML = "set filter: " + currentFilter + " - " + (currentFilterPos) + "/" + (filters.length - 1);
 	mySnackbarFunction();
 	
 	// remove video

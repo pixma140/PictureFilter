@@ -79,7 +79,7 @@ input[type="button"] {
 	position: fixed; /* Sit on top of the screen */
 	
     min-width: 60%; /* Set a default minimum width */
-    left: 25%; /* Center the snackbar */	
+    left: 20%; /* Center the snackbar */	
 	bottom: 20%; /* 20%px from the bottom */
 	
     text-align: center; /* Centered text */
