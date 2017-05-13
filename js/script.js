@@ -365,7 +365,7 @@ function buttonSavePressed() {
 	// add video
 	var toAddVideo = document.createElement('video');
 	toAddVideo.id = "myVideo";
-	toAddVideo.setAttribute('width', '9%');
+	toAddVideo.setAttribute('width', '90%');
 	toAddVideo.autoplay = "true";
 	document.getElementById("myVideoDiv").appendChild(toAddVideo);
 	
