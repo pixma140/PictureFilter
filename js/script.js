@@ -365,7 +365,7 @@ function buttonSavePressed() {
 	// add video
 	var toAddVideo = document.createElement('video');
 	toAddVideo.id = "myVideo";
-	toAddVideo.setAttribute('width', '80%');
+	toAddVideo.setAttribute('width', '83%');
 	toAddVideo.autoplay = "true";
 	document.getElementById("myVideoDiv").appendChild(toAddVideo);
 	
@@ -430,7 +430,7 @@ function buttonBackPressed() {
 	// add video
 	var toAddVideo = document.createElement('video');
 	toAddVideo.id = "myVideo";
-	toAddVideo.setAttribute('width', '80%');
+	toAddVideo.setAttribute('width', '83%');
 	toAddVideo.autoplay = "true";
 	document.getElementById("myVideoDiv").appendChild(toAddVideo);
 	
