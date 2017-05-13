@@ -78,12 +78,12 @@ input[type="button"] {
     visibility: hidden; /* Hidden by default. Visible on click */
 	position: fixed; /* Sit on top of the screen */
 	
-    min-width: 60%; /* Set a default minimum width */
+    min-width: 80%; /* Set a default minimum width */
     left: 20%; /* Center the snackbar */	
 	bottom: 20%; /* 20%px from the bottom */
 	
     text-align: center; /* Centered text */
-	font-size: 2em; /* Centered text */
+	font-size: 4em; /* Centered text */
         
 	border-radius: 10px; /* Rounded borders */
 	background-color: #444; /* Black background color */
