@@ -78,8 +78,8 @@ input[type="button"] {
     visibility: hidden; /* Hidden by default. Visible on click */
 	position: fixed; /* Sit on top of the screen */
 	
-    min-width: 80%; /* Set a default minimum width */
-    left: 10%; /* Center the snackbar */	
+    min-width: 90%; /* Set a default minimum width */
+    left: 5%; /* Center the snackbar */	
 	bottom: 20%; /* 20%px from the bottom */
 	
     text-align: center; /* Centered text */
